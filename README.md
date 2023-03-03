@@ -7,5 +7,6 @@ BBMap version
 FastQC version
 featureCounts version
 kallisto version
+multqc version
 
 
