@@ -8,5 +8,7 @@ FastQC version
 featureCounts version
 kallisto version
 multqc version
+rseqc version
+salmon version
 
 
