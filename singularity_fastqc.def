@@ -98,5 +98,5 @@ From: ubuntu:22.04
 	
 %runscript
     echo "This is the container for $VAL" 
-    =echo "Container was created on $NOW"
+    echo "Container was created on $NOW"
 
