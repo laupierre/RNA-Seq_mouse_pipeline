@@ -51,30 +51,30 @@ From: ubuntu:22.04
     
     
     cd /home
-	wget https://sourceforge.net/projects/subread/files/subread-2.0.4/subread-2.0.4-Linux-x86_64.tar.gz
-	tar -xvf subread-2.0.4-Linux-x86_64.tar.gz
+    wget https://sourceforge.net/projects/subread/files/subread-2.0.4/subread-2.0.4-Linux-x86_64.tar.gz
+    tar -xvf subread-2.0.4-Linux-x86_64.tar.gz
 	
-	cp /home/subread-2.0.4-Linux-x86_64/bin/featureCounts /usr/local/bin
-	
-	
-	NOW=`date`
-	echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
-	
-	featureCounts -v 2> temp.txt
-	VAL=`grep "Counts" temp.txt`
-	echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
-	
-	echo "software featureCounts" >> "$SINGULARITY_LABELS"
-	echo "version $VAL" >> "$SINGULARITY_LABELS"
+    cp /home/subread-2.0.4-Linux-x86_64/bin/featureCounts /usr/local/bin
 	
 	
-	mkdir /root/gtf
-	cd /root/gtf
-	wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.annotation.gtf.gz
-	gunzip gencode.vM32.annotation.gtf.gz
+    NOW=`date`
+    echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+	
+    featureCounts -v 2> temp.txt
+    VAL=`grep "Counts" temp.txt`
+    echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+	
+    echo "software featureCounts" >> "$SINGULARITY_LABELS"
+    echo "version $VAL" >> "$SINGULARITY_LABELS"
 	
 	
-	# Cleanup
+    mkdir /root/gtf
+    cd /root/gtf
+    wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.annotation.gtf.gz
+    gunzip gencode.vM32.annotation.gtf.gz
+	
+	
+    # Cleanup
     cd /home
     rm -rf * && \
     apt-get autoremove -y && \
@@ -83,11 +83,11 @@ From: ubuntu:22.04
     
 
 %test
-	featureCounts -v
+    featureCounts -v
 
 	
 %runscript
-	echo "This is the container for $VAL" 
+    echo "This is the container for $VAL" 
     echo "Container was created on $NOW"
 
 
