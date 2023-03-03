@@ -4,6 +4,7 @@ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/genco
 kallisto index -i mouse_transcripts.idx gencode.vM32.transcripts.fa.gz
 
 
+
 #### STAR index
 
 #!/bin/bash
@@ -33,7 +34,30 @@ apptainer exec star.sif /bin/bash -c \
 --sjdbOverhang 100"
 
 
+
 #### Salmon index
+
+#!/bin/bash
+#PBS -l walltime=20:00:00
+#PBS -l select=1:ncpus=8
+#PBS -q workq
+#PBS -N salmon
+
+cd $PBS_O_WORKDIR	
+
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.transcripts.fa.gz
+
+apptainer exec salmon.sif /bin/bash -c \
+"salmon index -t gencode.vM32.transcripts.fa.gz -i mouse_salmon_index --gencode"
+
+
+
+
+
+
+
+
+
 
 
 
