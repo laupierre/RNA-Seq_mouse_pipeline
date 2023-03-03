@@ -11,6 +11,6 @@ multiqc version
 rseqc version
 salmon version
 
-The folder where the images and mouse indexes are located is: 
+The folder where the Singularity images and mouse indexes are located is: 
 
 
