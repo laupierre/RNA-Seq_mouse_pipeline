@@ -1,0 +1,7 @@
+## Kallisto index
+
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.transcripts.fa.gz
+kallisto index -i mouse_transcripts.idx gencode.vM32.transcripts.fa.gz
+
+
+
