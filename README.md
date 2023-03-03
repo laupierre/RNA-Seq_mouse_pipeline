@@ -1,2 +1,4 @@
 #### this is the working place of singularity
-The development version is v0.0.1_dev
+This is a development version: v0.0.1_dev
+
+
