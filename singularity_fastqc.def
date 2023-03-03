@@ -57,13 +57,12 @@ From: ubuntu:22.04
     
     export LANG=C.UTF-8 LC_ALL=C.UTF-8
     
-    
-	#Install miniconda 3
+    #Install miniconda 3
     wget -c https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh
     /bin/bash Miniconda3-py310_23.1.0-1-Linux-x86_64.sh -bfp /usr/local
     
     conda update conda
-	conda install -c conda-forge mamba
+    conda install -c conda-forge mamba
 	
     #conda configuration of channels in /.condarc file
     touch /.condarc
@@ -72,19 +71,19 @@ From: ubuntu:22.04
     conda config --file /.condarc --add channels conda-forge
     conda config --file /.condarc --set channel_priority strict
  	
- 	mamba install -c conda-forge -c bioconda fastqc=0.11.9
+    mamba install -c conda-forge -c bioconda fastqc=0.11.9
  	
- 	NOW=`date`
-	echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+    NOW=`date`
+    echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	VAL=`fastqc --version`
-	echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+    VAL=`fastqc --version`
+    echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	echo "software fastqc" >> "$SINGULARITY_LABELS"
-	echo "version $VAL" >> "$SINGULARITY_LABELS"
+    echo "software fastqc" >> "$SINGULARITY_LABELS"
+    echo "version $VAL" >> "$SINGULARITY_LABELS"
  
 
-	#Cleanup
+    #Cleanup
     cd /home
     rm -rf * && \
     apt-get autoremove -y && \
@@ -93,11 +92,11 @@ From: ubuntu:22.04
     
 
 %test
-	fastqc --version
-	mamba --version
+    fastqc --version
+    mamba --version
 
 	
 %runscript
-	echo "This is the container for $VAL" 
-    echo "Container was created on $NOW"
+    echo "This is the container for $VAL" 
+    =echo "Container was created on $NOW"
 
