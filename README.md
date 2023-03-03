@@ -10,7 +10,7 @@ kallisto version 0.40.0,
 multiqc version 1.14,
 rseqc version 5.0.1,
 salmon version 1.10.0,
-STAR version .
+STAR version 2.7.10b.
 
 
 The folder where the Singularity images and mouse indexes are located is: 
