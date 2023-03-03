@@ -9,11 +9,11 @@ From: ubuntu:22.04
     Year March_2023
     
 %help
-	This is the container with featureCounts for testing the RNA-Seq pipeline
+    This is the container with featureCounts for testing the RNA-Seq pipeline
 
 %environment
-	PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-	LANG=C.UTF-8 LC_ALL=C.UTF-8
+    PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+    LANG=C.UTF-8 LC_ALL=C.UTF-8
 	
 %files
 
