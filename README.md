@@ -6,7 +6,7 @@ The singularity images are built for:
 BBMap version 39.01, 
 FastQC version 0.11.9,
 featureCounts version 2.0.4,
-kallisto version 
+kallisto version 0.40.0,
 multqc version
 rseqc version
 salmon version
