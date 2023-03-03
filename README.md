@@ -9,7 +9,7 @@ featureCounts version 2.0.4,
 kallisto version 0.40.0,
 multiqc version 1.14,
 rseqc version 5.0.1,
-salmon version ,
+salmon version 1.10.0,
 STAR version .
 
 
