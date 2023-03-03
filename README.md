@@ -7,7 +7,7 @@ BBMap version 39.01,
 FastQC version 0.11.9,
 featureCounts version 2.0.4,
 kallisto version 0.40.0,
-multiqc version
+multiqc version 1.14,
 rseqc version
 salmon version
 
