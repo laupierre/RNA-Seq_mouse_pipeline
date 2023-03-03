@@ -1,0 +1,116 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+
+%labels
+    Author IIT_Genomics_Core
+    Pipeline RNA-Seq
+    Version v0.0.1_dev
+    Year March_2023
+    
+%help
+	This is the container with Salmon for testing the RNA-Seq pipeline
+
+%environment
+	PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+	LANG=C.UTF-8 LC_ALL=C.UTF-8
+	
+%files
+
+	    
+%post
+    apt-get -qq -y update
+    
+    #for tzdata
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get -qq install -y --no-install-recommends tzdata apt-utils 
+
+    ln -fs /usr/share/zoneinfo/Europe/Rome /etc/localtime 
+    dpkg-reconfigure --frontend noninteractive tzdata
+
+    
+    apt-get -qq -y update
+    apt-get -qq install -y --no-install-recommends \
+    autoconf \
+    automake \
+    build-essential \
+    bzip2 \
+    cmake \
+    gcc \
+    g++ \
+    gfortran \
+    default-jdk \
+    git \
+    wget \
+    less \
+    nano \
+    zlib1g \
+    zlib1g-dev \
+    libhdf5-dev	\
+    libboost-all-dev \
+    curl \
+    unzip \
+    libbz2-dev	\
+    liblzma-dev	\
+    libbtbb-dev
+
+    
+    export LANG=C.UTF-8 LC_ALL=C.UTF-8
+    
+    
+	# Install miniconda 3
+    wget -c https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh
+    /bin/bash Miniconda3-py310_23.1.0-1-Linux-x86_64.sh -bfp /usr/local
+    
+    conda update conda
+	conda install -c conda-forge mamba
+	
+    # conda configuration of channels in /.condarc file
+    touch /.condarc
+    conda config --file /.condarc --add channels defaults
+    conda config --file /.condarc --add channels bioconda
+    conda config --file /.condarc --add channels conda-forge
+    conda config --file /.condarc --set channel_priority strict
+ 	
+ 	mamba install -c conda-forge -c bioconda salmon=1.10.0 
+	
+	
+	NOW=`date`
+	echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+	
+	VAL=`salmon -v`
+	echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+	
+	echo "software salmon" >> "$SINGULARITY_LABELS"
+	echo "version $VAL" >> "$SINGULARITY_LABELS"
+	
+	### Mouse index
+	## mkdir /root/salmon
+	## cd /root/salmon	
+	
+	# wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.transcripts.fa.gz
+	# wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/GRCm39.primary_assembly.genome.fa.gz
+	# grep "^>" <(gunzip -c GRCm39.primary_assembly.genome.fa.gz) | cut -d " " -f 1 > decoys.txt
+	# sed -i.bak -e 's/>//g' decoys.txt
+	# cat gencode.vM32.transcripts.fa.gz GRCm39.primary_assembly.genome.fa.gz > gentrome.fa.gz
+	# salmon index -t gentrome.fa.gz -d decoys.txt -p 12 -i mouse_salmon_index --gencode
+	
+	
+	# Cleanup
+    cd /home
+    rm -rf * && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y  && \
+    apt-get clean	
+    
+
+%test
+	salmon -v
+	mamba --version
+
+	
+%runscript
+	echo "This is the container for $VAL" 
+    echo "Container was created on $NOW"
+
+
