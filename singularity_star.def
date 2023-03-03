@@ -9,11 +9,11 @@ From: ubuntu:22.04
     Year March_2023
     
 %help
-	This is the container with STAR for testing the RNA-Seq pipeline
+    This is the container with STAR for testing the RNA-Seq pipeline
 
 %environment
-	PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-	LANG=C.UTF-8 LC_ALL=C.UTF-8
+    PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+    LANG=C.UTF-8 LC_ALL=C.UTF-8
 	
 %files
 
@@ -70,29 +70,24 @@ From: ubuntu:22.04
     # Install STAR 2.7.10b 
     export star_version=2.7.10b
 	
-	wget https://github.com/alexdobin/STAR/archive/${star_version}.tar.gz
-	tar -xzf ${star_version}.tar.gz
-	cd STAR-${star_version}/source
-	make STAR
+    wget https://github.com/alexdobin/STAR/archive/${star_version}.tar.gz
+    tar -xzf ${star_version}.tar.gz
+    cd STAR-${star_version}/source
+    make STAR
 	
-	cp ./STAR /usr/local/bin
+    cp ./STAR /usr/local/bin
 	
-	NOW=`date`
-	echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+    NOW=`date`
+    echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	VAL=`STAR --version`
-	echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+    VAL=`STAR --version`
+    echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	echo "software STAR" >> "$SINGULARITY_LABELS"
-	echo "version $VAL" >> "$SINGULARITY_LABELS"
+    echo "software STAR" >> "$SINGULARITY_LABELS"
+    echo "version $VAL" >> "$SINGULARITY_LABELS"
+			
 	
-	
-	    
-    ## Install some Python packages
-    #python3 -m pip --no-cache-dir install numpy pandas scikit-learn
-		
-	
-	# Cleanup
+    # Cleanup
     cd /home
     rm -rf ${star_version}.tar.gz && \
     rm -rf STAR-{star_version} && \
@@ -104,11 +99,11 @@ From: ubuntu:22.04
 
 
 %test
-	STAR --version
+    STAR --version
 
 	
 %runscript
-	echo "This is the container for STAR version $VAL" 
+    echo "This is the container for STAR version $VAL" 
     echo "Container was created on $NOW"
 
 
