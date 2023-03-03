@@ -9,11 +9,11 @@ From: ubuntu:22.04
     Year March_2023
     
 %help
-	This is the container with RSeqQC for testing the RNA-Seq pipeline
+    This is the container with RSeqQC for testing the RNA-Seq pipeline
 
 %environment
-	PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-	LANG=C.UTF-8 LC_ALL=C.UTF-8
+    PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+    LANG=C.UTF-8 LC_ALL=C.UTF-8
 	
 %files
 
@@ -57,20 +57,20 @@ From: ubuntu:22.04
         
     ## Install additional Python packages
     python3 -m pip --no-cache-dir install numpy pandas scikit-learn
- 	pip install RSeQC==5.0.1
+    pip install RSeQC==5.0.1
  	
  	
- 	NOW=`date`
-	echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+    NOW=`date`
+    echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	VAL=`echo RSeqQC v5.0.1`
-	echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+    VAL=`echo RSeqQC v5.0.1`
+    echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	echo "software rseqc" >> "$SINGULARITY_LABELS"
-	echo "version $VAL" >> "$SINGULARITY_LABELS"
+    echo "software rseqc" >> "$SINGULARITY_LABELS"
+    echo "version $VAL" >> "$SINGULARITY_LABELS"
 
 
-	# Cleanup
+    # Cleanup
     cd /home
     rm -rf * && \
     apt-get autoremove -y && \
@@ -82,7 +82,7 @@ From: ubuntu:22.04
 
 	
 %runscript
-	echo "This is the container for $VAL" 
+    echo "This is the container for $VAL" 
     echo "Container was created on $NOW"
 
 
