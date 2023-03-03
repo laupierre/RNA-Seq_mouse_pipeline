@@ -1,6 +1,6 @@
 ### this is the working place for developing the RNA-Seq pipeline based on singularity
 
-This is the development version for the production team: v0.1_dev
+This is the development version deposited for the production team: the current version is v0.1_dev
 
 The singularity images are built for:
 BBMap version 39.01, 
