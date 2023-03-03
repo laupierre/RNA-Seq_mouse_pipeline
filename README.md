@@ -1,2 +1,2 @@
 #### this is the working place of singularity
-Hello New World !
+The development version is v0.0.1_dev
