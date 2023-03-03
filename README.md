@@ -5,7 +5,7 @@ This is the development version for the production side: v0.1_dev
 The singularity images are for:
 BBMap version 39.01, 
 FastQC version 0.11.9,
-featureCounts version
+featureCounts version 2.0.4,
 kallisto version
 multqc version
 rseqc version
