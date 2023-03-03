@@ -1,0 +1,96 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+
+%labels
+    Author IIT_Genomics_Core
+    Pipeline RNA-Seq
+    Version v0.0.1_dev
+    Year March_2023
+    
+%help
+	This is the container with Kallisto for testing the RNA-Seq pipeline
+
+%environment
+	PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+	LANG=C.UTF-8 LC_ALL=C.UTF-8
+	
+%files
+
+	    
+%post
+    apt-get -qq -y update
+    
+    #for tzdata
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get -qq install -y --no-install-recommends tzdata apt-utils 
+
+    ln -fs /usr/share/zoneinfo/Europe/Rome /etc/localtime 
+    dpkg-reconfigure --frontend noninteractive tzdata
+
+    
+    apt-get -qq -y update
+    apt-get -qq install -y --no-install-recommends \
+    autoconf \
+    automake \
+    build-essential \
+    bzip2 \
+    cmake \
+    gcc \
+    g++ \
+    gfortran \
+    default-jdk \
+    git \
+    wget \
+    less \
+    nano \
+    zlib1g \
+    zlib1g-dev \
+    libhdf5-dev   
+    
+    export LANG=C.UTF-8 LC_ALL=C.UTF-8
+    
+    
+    cd /home
+
+	wget https://github.com/pachterlab/kallisto/releases/download/v0.48.0/kallisto_linux-v0.48.0.tar.gz
+	tar -xvf kallisto_linux-v0.48.0.tar.gz
+	cd kallisto
+	cp kallisto /usr/local/bin
+	
+	
+	NOW=`date`
+	echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+	
+	VAL=`kallisto version`
+	echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+	
+	echo "software kallisto" >> "$SINGULARITY_LABELS"
+	echo "version $VAL" >> "$SINGULARITY_LABELS"
+	
+	# Mouse index
+	mkdir /root/kallisto
+	cd /root/kallisto
+	
+	wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.transcripts.fa.gz
+	kallisto index -i mouse_transcripts.idx gencode.vM32.transcripts.fa.gz
+	
+	
+	
+	# Cleanup
+    cd /home
+    rm -rf * && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y  && \
+    apt-get clean	
+    
+
+%test
+	kallisto version
+
+	
+%runscript
+	echo "This is the container for $VAL" 
+    echo "Container was created on $NOW"
+
+
