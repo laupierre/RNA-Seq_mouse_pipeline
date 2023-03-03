@@ -9,11 +9,11 @@ From: ubuntu:22.04
     Year March_2023
     
 %help
-	This is the container with Salmon for testing the RNA-Seq pipeline
+    This is the container with Salmon for testing the RNA-Seq pipeline
 
 %environment
-	PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-	LANG=C.UTF-8 LC_ALL=C.UTF-8
+    PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+    LANG=C.UTF-8 LC_ALL=C.UTF-8
 	
 %files
 
@@ -58,12 +58,12 @@ From: ubuntu:22.04
     export LANG=C.UTF-8 LC_ALL=C.UTF-8
     
     
-	# Install miniconda 3
+    # Install miniconda 3
     wget -c https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh
     /bin/bash Miniconda3-py310_23.1.0-1-Linux-x86_64.sh -bfp /usr/local
     
     conda update conda
-	conda install -c conda-forge mamba
+    conda install -c conda-forge mamba
 	
     # conda configuration of channels in /.condarc file
     touch /.condarc
@@ -72,31 +72,20 @@ From: ubuntu:22.04
     conda config --file /.condarc --add channels conda-forge
     conda config --file /.condarc --set channel_priority strict
  	
- 	mamba install -c conda-forge -c bioconda salmon=1.10.0 
+    mamba install -c conda-forge -c bioconda salmon=1.10.0 
 	
 	
-	NOW=`date`
-	echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+    NOW=`date`
+    echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	VAL=`salmon -v`
-	echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+    VAL=`salmon -v`
+    echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	echo "software salmon" >> "$SINGULARITY_LABELS"
-	echo "version $VAL" >> "$SINGULARITY_LABELS"
+    echo "software salmon" >> "$SINGULARITY_LABELS"
+    echo "version $VAL" >> "$SINGULARITY_LABELS"
+		
 	
-	### Mouse index
-	## mkdir /root/salmon
-	## cd /root/salmon	
-	
-	# wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.transcripts.fa.gz
-	# wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/GRCm39.primary_assembly.genome.fa.gz
-	# grep "^>" <(gunzip -c GRCm39.primary_assembly.genome.fa.gz) | cut -d " " -f 1 > decoys.txt
-	# sed -i.bak -e 's/>//g' decoys.txt
-	# cat gencode.vM32.transcripts.fa.gz GRCm39.primary_assembly.genome.fa.gz > gentrome.fa.gz
-	# salmon index -t gentrome.fa.gz -d decoys.txt -p 12 -i mouse_salmon_index --gencode
-	
-	
-	# Cleanup
+    # Cleanup
     cd /home
     rm -rf * && \
     apt-get autoremove -y && \
@@ -105,12 +94,12 @@ From: ubuntu:22.04
     
 
 %test
-	salmon -v
-	mamba --version
+    salmon -v
+    mamba --version
 
 	
 %runscript
-	echo "This is the container for $VAL" 
+    echo "This is the container for $VAL" 
     echo "Container was created on $NOW"
 
 
