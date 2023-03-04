@@ -1,0 +1,83 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+
+%labels
+     Author IIT_Genomics_Core
+     Pipeline RNA-Seq
+     Version v0.0.1_dev
+     Year March_2023
+    
+%help
+	   This is the container with Sambamba for testing the RNA-Seq pipeline
+
+%environment
+	   PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+	   LANG=C.UTF-8 LC_ALL=C.UTF-8
+	
+%files
+
+
+%post
+    apt-get -qq -y update
+    
+    #for tzdata
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get -qq install -y --no-install-recommends tzdata apt-utils 
+
+    ln -fs /usr/share/zoneinfo/Europe/Rome /etc/localtime 
+    dpkg-reconfigure --frontend noninteractive tzdata
+
+    
+    apt-get -qq -y update
+    apt-get -qq install -y --no-install-recommends \
+    autoconf \
+    automake \
+    build-essential \
+    bzip2 \
+    cmake \
+    gcc \
+	  g++ \
+	  gfortran \
+    default-jdk \
+    git \
+    wget \
+    less \
+    nano \
+    zlib1g \
+    zlib1g-dev \
+    libhdf5-dev \
+    python3-dev \
+    python3-pip \
+    python3-wheel \
+    sambamba
+
+
+    export LANG=C.UTF-8 LC_ALL=C.UTF-8
+    
+    cd /home    		
+ 	  NOW=`date`
+	  echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+	
+	  sambamba view 2> temp.txt
+	  VAL=`cat temp.txt | grep "sambamba 0"`
+	  echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+	
+	  echo "software sambamba" >> "$SINGULARITY_LABELS"
+	  echo "version $VAL" >> "$SINGULARITY_LABELS"
+ 
+ 	# Cleanup
+    cd /home
+    rm -rf * && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y  && \
+    apt-get clean	
+    
+
+%test
+    sambamba view
+	
+%runscript
+	  echo "This is the container for $VAL" 
+    echo "Container was created on $NOW"
+
