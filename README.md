@@ -13,7 +13,7 @@ salmon version 1.10.0,
 STAR version 2.7.10b.
 
 
-The folder where the Singularity images and mouse indexes are located in:
+The Singularity images and mouse indexes are located in:
 /projects/ncrrbt_share_la/dev_pipe/
 
 
