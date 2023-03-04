@@ -31,7 +31,7 @@ The RNA-Seq pipeline is coded inside the rnaseq_mouse.sh file and can be submitt
 
 cd $PBS_O_WORKDIR   
 
-./rnaseq_mouse.sh --method=star   
+./rnaseq_mouse_v0.0.1.sh --method=star   
 ###########  
 
 In the pipeline, there are three methods available for the quantification: star, kallisto, salmon.
