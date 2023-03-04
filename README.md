@@ -1,4 +1,4 @@
-### this is the working place for developing the RNA-Seq pipeline based on singularity
+### This is the working place for developing the RNA-Seq pipeline based on singularity
 
 This is the development version deposited for the production team: the current version is v0.0.1_dev
 
@@ -13,7 +13,10 @@ salmon version 1.10.0,
 STAR version 2.7.10b.
 
 
-The Singularity images and mouse indexes are located in:
+The Singularity images and mouse indexes are currently located in:
 /projects/ncrrbt_share_la/dev_pipe/
+
+The images are built following this example:
+apptainer star.sif singularity_star.def
 
 
