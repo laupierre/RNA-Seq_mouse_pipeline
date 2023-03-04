@@ -48,3 +48,46 @@ BEFORE=`date`
 echo "Starting the RNA-Seq pipeline on ${BEFORE}" >> log.out
 ##################
 
+
+
+##################
+#### STAR analysis
+if [ "$COLOR" = "star" ]; then
+echo "Starting STAR ..." >> log.out
+
+cp -r $CONTAINER/mouse_star_index .
+
+var=(`ls *R1*.fastq.gz`)
+
+	for i in ${var[@]}
+	do
+	read2=`echo ${i} | sed 's/R1/R2/g'`
+	prefix=`echo ${i%%_R1*}`
+	
+	apptainer exec $CONTAINER/star.sif /bin/bash -c \
+	"STAR --genomeDir mouse_star_index --runThreadN 10 \
+	--readFilesIn $i $read2 \
+	--outSAMtype BAM Unsorted \
+	--readFilesCommand zcat \
+	--outFileNamePrefix star.${prefix}"
+
+	## Put this inside the loop
+	if [ $? -eq 0 ]
+	then 
+    echo "STAR processed sample ${prefix}" >> log.out
+	else
+	echo "STAR failed on sample ${prefix}"  >> log.out
+	#exit 1
+	fi
+	done
+	
+
+mkdir star_results
+mv star.IIT* star_results
+
+AFTER=`date`
+echo "STAR finished on ${AFTER}" >> log.out
+
+
+
+
