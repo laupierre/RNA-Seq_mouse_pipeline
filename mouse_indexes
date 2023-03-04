@@ -43,7 +43,7 @@ apptainer exec star.sif /bin/bash -c \
 #PBS -q workq
 #PBS -N salmon
 
-cd $PBS_O_WORKDIR	
+cd $PBS_O_WORKDIR
 
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.transcripts.fa.gz
 gunzip gencode.vM32.transcripts.fa.gz
