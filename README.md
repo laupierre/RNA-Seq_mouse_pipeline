@@ -17,6 +17,6 @@ The Singularity images and mouse indexes are currently located in:
 /projects/ncrrbt_share_la/dev_pipe/
 
 The containers are built following this example for STAR:
-apptainer star.sif singularity_star.def
+apptainer build star.sif singularity_star.def
 
 
