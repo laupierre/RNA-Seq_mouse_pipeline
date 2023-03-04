@@ -31,6 +31,7 @@ The RNA-Seq pipeline is coded inside the rnaseq_mouse.sh file and can be submitt
 
 cd $PBS_O_WORKDIR   
 
+chmod +x rnaseq_mouse_v0.0.1.sh  
 ./rnaseq_mouse_v0.0.1.sh --method=star   
 ###########  
 
