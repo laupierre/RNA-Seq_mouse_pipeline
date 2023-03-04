@@ -39,7 +39,7 @@ apptainer exec star.sif /bin/bash -c \
 
 #!/bin/bash
 #PBS -l walltime=20:00:00
-#PBS -l select=1:ncpus=8
+#PBS -l select=1:ncpus=6
 #PBS -q workq
 #PBS -N salmon
 
@@ -48,7 +48,7 @@ cd $PBS_O_WORKDIR
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.transcripts.fa.gz
 
 apptainer exec salmon.sif /bin/bash -c \
-"salmon index -t gencode.vM32.transcripts.fa.gz -i mouse_salmon_index --gencode"
+"salmon index -p 6 -t gencode.vM32.transcripts.fa.gz -i mouse_salmon_index --gencode"
 
 
 
