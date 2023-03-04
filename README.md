@@ -35,5 +35,5 @@ cd $PBS_O_WORKDIR
 ###########  
 
 In this pipeline, there are three methods available for the quantification: star, kallisto, salmon.
-Just modify the file by the method you want to use (eg --method=salmon , if you want salmon  ...etc...) and submit it to the PBS queue.
+Select the method you want to use (eg --method=salmon , if you want to use salmon  ...etc...) and submit it to the PBS queue using qsub.
 
