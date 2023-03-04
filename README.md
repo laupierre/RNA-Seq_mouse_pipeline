@@ -20,7 +20,7 @@ The Singularity images and mouse indexes are currently located in:
 The containers are built following this example for STAR:  
 apptainer build star.sif singularity_star.def
 
-The RNA-Seq pipeline is inside the rnaseq_mouse.sh file and can be submitted to qsub using the following PBS file.
+The RNA-Seq pipeline is coded inside the rnaseq_mouse.sh file and can be submitted to qsub using the following PBS file.
 
 ###########  
 #!/bin/bash  
@@ -34,6 +34,6 @@ cd $PBS_O_WORKDIR
 ./rnaseq_mouse.sh --method=star   
 ###########  
 
-In this pipeline, there are three methods available for the quantification: star, kallisto, salmon.
+In the pipeline, there are three methods available for the quantification: star, kallisto, salmon.
 Select the method you want to use (eg --method=salmon , if you want to use salmon  ...etc...) and submit it to the PBS queue using qsub.
 
