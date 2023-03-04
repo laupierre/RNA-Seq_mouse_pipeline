@@ -74,7 +74,7 @@ var=(`ls *R1*.fastq.gz`)
 	## Put this inside the loop
 	if [ $? -eq 0 ]
 	then 
-    echo "STAR processed sample ${prefix}" >> log.out
+    	echo "STAR processed sample ${prefix}" >> log.out
 	else
 	echo "STAR failed on sample ${prefix}"  >> log.out
 	#exit 1
