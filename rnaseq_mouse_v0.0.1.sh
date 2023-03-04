@@ -90,6 +90,7 @@ echo "STAR finished on ${AFTER}" >> log.out
 
 
 
+#############################
 #### featureCounts after STAR
 echo "Starting featureCounts ..." >> log.out
 cd star_results
@@ -103,6 +104,42 @@ cd ..
 
 AFTER=`date`
 echo "featureCounts finished on ${AFTER}" >> log.out
+
+
+
+########################################
+#### RSeQC analysis and sambamba markdup
+echo "Starting RSeQC and sambamba ..." >> log.out
+
+wget https://sourceforge.net/projects/rseqc/files/BED/Mouse_Mus_musculus/GRCm39_GENCODE_VM27.bed.gz
+gunzip GRCm39_GENCODE_VM27.bed.gz
+
+cd star_results
+
+var=(`ls *.bam`)	
+	
+	for i in ${var[@]}
+	do
+	prefix=`echo ${i%%.bam}`	
+	echo $prefix
+	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
+	"infer_experiment.py -r ../GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
+	done
+
+
+var=(`ls *bam`)
+
+	for i in ${var[@]}
+	do
+	prefix=`echo ${i%%_S*}`	
+	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
+	"sambamba markdup -t 10 $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
+	done
+	
+cd ..
+
+AFTER=`date`
+echo "RSeQC and sambamba finished on ${AFTER}" >> log.out
 
 fi
 ####
@@ -198,44 +235,6 @@ apptainer exec $CONTAINER/fastqc.sif /bin/bash -c \
 
 AFTER=`date`
 echo "FastQC finished on ${AFTER}" >> log.out
-####
-
-
-
-
-########################################
-#### RSeQC analysis and sambamba markdup
-echo "Starting RSeQC and sambamba ..." >> log.out
-
-wget https://sourceforge.net/projects/rseqc/files/BED/Mouse_Mus_musculus/GRCm39_GENCODE_VM27.bed.gz
-gunzip GRCm39_GENCODE_VM27.bed.gz
-
-cd star_results
-
-var=(`ls *.bam`)	
-	
-	for i in ${var[@]}
-	do
-	prefix=`echo ${i%%.bam}`	
-	echo $prefix
-	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
-	"infer_experiment.py -r ../GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
-	done
-
-
-var=(`ls *bam`)
-
-	for i in ${var[@]}
-	do
-	prefix=`echo ${i%%_S*}`	
-	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
-	"sambamba markdup -t 10 $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
-	done
-	
-cd ..
-
-AFTER=`date`
-echo "RSeQC and sambamba finished on ${AFTER}" >> log.out
 ####
 
 
