@@ -45,8 +45,7 @@ CPUS=12
 
 #### Start message
 echo "The RNA-Seq pipeline (v.0.1_dev) is for the mouse species and the $COLOR method was chosen" >> log.out
-BEFORE=`date`
-echo "Starting the RNA-Seq pipeline on ${BEFORE}" >> log.out
+echo "Starting the RNA-Seq pipeline on `date`" >> log.out
 ##################
 
 
@@ -100,7 +99,10 @@ files=`ls -d *bam | xargs -n1000`
 apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 "featureCounts -B -C -s 2 -p --countReadPairs -T $CPUS -t exon -g gene_id \
 -a /root/gtf/gencode.vM32.annotation.gtf \
--o subread.counts.txt $files"
+-o subread.counts.txt $files" || { 
+echo "featureCounts has an error. Pipeline terminated" >> log.out
+exit 1
+}
 	
 cd ..
 
@@ -126,9 +128,7 @@ var=(`ls ../star_results/*bam`)
 	prefix=`echo ${i%%_S*}`
 	prefix2=`echo ${prefix##*/}`
 	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
-	"sambamba markdup -t $CPUS $i $prefix2.markdup.bam > markdup.$prefix2.log 2>&1"
-	
-	[ $? -ne 0 ] || { 
+	"sambamba markdup -t $CPUS $i $prefix2.markdup.bam > markdup.$prefix2.log 2>&1" || { 
    	echo "Sambamba has an error. Pipeline terminated" >> log.out
     	exit 1
 	}
@@ -140,9 +140,7 @@ var=(`ls *.bam`)
 	do
 	prefix=`echo ${i%%.bam}`
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
-	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix2.infer_experiment.txt"
-	
-	[ $? -ne 0 ] || { 
+	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix2.infer_experiment.txt" || { 
    	echo "RSeQC has an error. Pipeline terminated" >> log.out
     	exit 1
 	}
@@ -279,11 +277,6 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m kallisto $PBS_O_WORKDIR/kallisto_results/*.kallisto.log \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
-
-#[ $? -ne 0 ] || { 
-#   	echo "MultiQC has an error. Pipeline terminated"
-#    	exit 1
-#	}
 fi
 
 AFTER=`date`
