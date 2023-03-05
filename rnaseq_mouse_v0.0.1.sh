@@ -102,11 +102,6 @@ apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files"
 
-[ $? -eq 1 ] || { 
-    echo "FeatureCounts has an error. Pipeline terminated"
-    exit 1
-}
-
 cd ..
 
 AFTER=`date`
