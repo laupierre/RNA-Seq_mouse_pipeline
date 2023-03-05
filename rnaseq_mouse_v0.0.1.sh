@@ -101,7 +101,7 @@ apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 "featureCounts -B -C -s 2 -p --countReadPairs -T $CPUS -t exon -g gene_id \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files"
-exit 1
+
 cd ..
 
 AFTER=`date`
