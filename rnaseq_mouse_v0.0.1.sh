@@ -111,10 +111,11 @@ echo "featureCounts finished on ${AFTER}" >> log.out
 #### RSeQC analysis and sambamba markdup
 echo "Starting RSeQC and sambamba ..." >> log.out
 
+mkdir rseqc_results
+cd rseqc_results
+
 wget https://sourceforge.net/projects/rseqc/files/BED/Mouse_Mus_musculus/GRCm39_GENCODE_VM27.bed.gz
 gunzip GRCm39_GENCODE_VM27.bed.gz
-
-cd star_results
 
 var=(`ls *.bam`)	
 	
@@ -123,7 +124,7 @@ var=(`ls *.bam`)
 	prefix=`echo ${i%%.bam}`	
 	echo $prefix
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
-	"infer_experiment.py -r ../GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
+	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
 	done
 
 
@@ -250,8 +251,8 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m featureCounts $PBS_O_WORKDIR/star_results/*summary \
 -m star $PBS_O_WORKDIR/star_results/*Log.final.out \
--m sambamba $PBS_O_WORKDIR/star_results/*markdup.bam.log \
--m rseqc $PBS_O_WORKDIR/star_results/*infer_experiment.txt \
+-m sambamba $PBS_O_WORKDIR/rseqc_results/*markdup.bam.log \
+-m rseqc $PBS_O_WORKDIR/rseqc_results/*infer_experiment.txt \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
 fi
 
