@@ -244,14 +244,29 @@ echo "FastQC finished on ${AFTER}" >> log.out
 #### MultiQC analysis
 echo "Starting MultiQC ..." >> log.out
 
+if [ "$COLOR" = "star" ]; then
 apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m featureCounts $PBS_O_WORKDIR/star_results/*summary \
 -m star $PBS_O_WORKDIR/star_results/*Log.final.out \
--m salmon $PBS_O_WORKDIR/salmon_results/* \
 -m sambamba $PBS_O_WORKDIR/star_results/*markdup.bam.log \
 -m rseqc $PBS_O_WORKDIR/star_results/*infer_experiment.txt \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+fi
+
+if [ "$COLOR" = "salmon" ]; then
+apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
+"multiqc -f -n multiqc_report_rnaseq \
+-m salmon $PBS_O_WORKDIR/salmon_results/* \
+-m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+fi
+
+if [ "$COLOR" = "kallisto" ]; then
+apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
+"multiqc -f -n multiqc_report_rnaseq \
+-m kallisto $PBS_O_WORKDIR/salmon_results/* \
+-m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+fi
 
 AFTER=`date`
 echo "MultiQC finished on ${AFTER}" >> log.out
