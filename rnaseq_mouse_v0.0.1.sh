@@ -160,7 +160,7 @@ var=(`ls *R1*.fastq.gz`)
 	prefix=`echo ${i%%_R1*}`
 
 	apptainer exec $CONTAINER/kallisto.sif /bin/bash -c \
-	"kallisto quant -i /root/kallisto/mouse_transcripts.idx -t 10 --rf-stranded -o kallisto.$prefix $i $read2 > $prefix_kallisto.log"
+	"kallisto quant -i /root/kallisto/mouse_transcripts.idx -t 10 --rf-stranded -o kallisto.$prefix $i $read2 > $prefix.kallisto.log"
 
 	## Put this inside the loop
 	if [ $? -eq 0 ]
@@ -174,6 +174,7 @@ var=(`ls *R1*.fastq.gz`)
 	
 mkdir kallisto_results
 mv kallisto.IIT* kallisto_results
+mv *kallisto.log kallisto_results
 
 AFTER=`date`
 echo "kallisto finished on ${AFTER}" >> log.out
@@ -264,7 +265,7 @@ fi
 if [ "$COLOR" = "kallisto" ]; then
 apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
--m kallisto $PBS_O_WORKDIR/salmon_results/* \
+-m kallisto $PBS_O_WORKDIR/kallisto_results/*.kallisto.log \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
 fi
 
