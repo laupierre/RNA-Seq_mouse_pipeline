@@ -19,10 +19,12 @@ STAR version 2.7.10b
 The Singularity containers and mouse indexes are currently located in:
 /projects/ncrrbt_share_la/dev_pipe/
 
-The containers are built following this example for STAR:  
+The containers are built following this example used for STAR:  
 apptainer build star.sif singularity_star.def
 
-The RNA-Seq pipeline is coded inside the rnaseq_mouse.sh file and can be submitted to qsub using the following PBS file.
+The RNA-Seq pipeline is found inside the rnaseq_mouse.sh file. In the pipeline, there are three methods available for the quantification: star, kallisto, salmon.
+Select the method you want to use (eg --method=salmon , if you want to use salmon  ...etc...) in the following PBS file and submit it to the PBS queue.  
+The PBS file controls the number of CPUS attributed to the pipeline (here we are using 12 CPUS by default).
 
 ###########  
 #!/bin/bash  
@@ -36,7 +38,4 @@ cd $PBS_O_WORKDIR
 chmod +x rnaseq_mouse_v0.0.1.sh  
 ./rnaseq_mouse_v0.0.1.sh --method=star   
 ###########  
-
-In the pipeline, there are three methods available for the quantification: star, kallisto, salmon.
-Select the method you want to use (eg --method=salmon , if you want to use salmon  ...etc...) and submit it to the PBS queue using qsub.
 
