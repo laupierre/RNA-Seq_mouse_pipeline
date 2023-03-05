@@ -119,21 +119,6 @@ cd rseqc_results
 wget https://sourceforge.net/projects/rseqc/files/BED/Mouse_Mus_musculus/GRCm39_GENCODE_VM27.bed.gz
 gunzip GRCm39_GENCODE_VM27.bed.gz
 
-var=(`ls ../star_results/*.bam`)	
-	
-	for i in ${var[@]}
-	do
-	prefix=`echo ${i%%_S*}`
-	prefix2=`echo ${prefix##*/}`
-	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
-	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix2.infer_experiment.txt"
-	
-	[ $? -ne 0 ] || { 
-   	echo "RSeQC has an error. Pipeline terminated" >> log.out
-    	exit 1
-	}
-	done
-
 var=(`ls ../star_results/*bam`)
 
 	for i in ${var[@]}
@@ -145,6 +130,20 @@ var=(`ls ../star_results/*bam`)
 	
 	[ $? -ne 0 ] || { 
    	echo "Sambamba has an error. Pipeline terminated" >> log.out
+    	exit 1
+	}
+	done
+
+var=(`ls *.bam`)	
+	
+	for i in ${var[@]}
+	do
+	prefix=`echo ${i%%.bam}`
+	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
+	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix2.infer_experiment.txt"
+	
+	[ $? -ne 0 ] || { 
+   	echo "RSeQC has an error. Pipeline terminated" >> log.out
     	exit 1
 	}
 	done
