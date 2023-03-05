@@ -117,18 +117,17 @@ cd rseqc_results
 wget https://sourceforge.net/projects/rseqc/files/BED/Mouse_Mus_musculus/GRCm39_GENCODE_VM27.bed.gz
 gunzip GRCm39_GENCODE_VM27.bed.gz
 
-var=(`ls *.bam`)	
+var=(`ls ../star_results/*.bam`)	
 	
 	for i in ${var[@]}
 	do
-	prefix=`echo ${i%%.bam}`	
-	echo $prefix
+	prefix=`echo ${i%%.bam}`
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
 	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
 	done
 
 
-var=(`ls *bam`)
+var=(`ls ../star_results/*bam`)
 
 	for i in ${var[@]}
 	do
