@@ -78,7 +78,7 @@ var=(`ls *R1*.fastq.gz`)
     	echo "STAR processed sample ${prefix}" >> log.out
 	else
 	echo "STAR failed on sample ${prefix}"  >> log.out
-	#exit 1
+	exit 1
 	fi
 	done
 	
@@ -102,6 +102,7 @@ apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files"
 
+exit 1
 cd ..
 
 AFTER=`date`
@@ -171,7 +172,7 @@ var=(`ls *R1*.fastq.gz`)
     	echo "kallisto processed sample ${prefix}" >> log.out
 	else
 	echo "kallisto failed on sample ${prefix}"  >> log.out
-	#exit 1
+	exit 1
 	fi
 	done
 	
@@ -211,7 +212,7 @@ var=(`ls *R1*.fastq.gz`)
     	echo "salmon processed sample ${prefix}" >> log.out
 	else
 	echo "salmon failed on sample ${prefix}"  >> log.out
-	#exit 1
+	exit 1
 	fi
 	done
 
