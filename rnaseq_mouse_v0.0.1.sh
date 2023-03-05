@@ -100,6 +100,7 @@ apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 "featureCounts -B -C -s 2 -p --countReadPairs -T 10 -t exon -g gene_id \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files"
+exit 1
 cd ..
 
 AFTER=`date`
@@ -125,7 +126,7 @@ var=(`ls ../star_results/*.bam`)
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
 	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
 	done
-
+exit 1
 
 var=(`ls ../star_results/*bam`)
 
@@ -135,7 +136,8 @@ var=(`ls ../star_results/*bam`)
 	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
 	"sambamba markdup -t 10 $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
 	done
-	
+exit 1
+
 cd ..
 
 AFTER=`date`
@@ -233,6 +235,7 @@ mkdir fastqc_results
 
 apptainer exec $CONTAINER/fastqc.sif /bin/bash -c \
 	"fastqc -t 10 -o fastqc_results $files"
+exit 1
 
 AFTER=`date`
 echo "FastQC finished on ${AFTER}" >> log.out
@@ -253,6 +256,7 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 -m sambamba $PBS_O_WORKDIR/rseqc_results/*markdup.bam.log \
 -m rseqc $PBS_O_WORKDIR/rseqc_results/*infer_experiment.txt \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+exit 1
 fi
 
 if [ "$COLOR" = "salmon" ]; then
@@ -260,6 +264,7 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m salmon $PBS_O_WORKDIR/salmon_results/* \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+exit 1
 fi
 
 if [ "$COLOR" = "kallisto" ]; then
@@ -267,6 +272,7 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m kallisto $PBS_O_WORKDIR/kallisto_results/*.kallisto.log \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+exit 1
 fi
 
 AFTER=`date`
