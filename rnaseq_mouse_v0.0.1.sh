@@ -313,21 +313,8 @@ echo "MultiQC finished on ${AFTER}" >> log.out
 
 #################
 #### Exit message
-echo "The RNA-Seq pipeline was completed on `date`" >> log.out
+echo "The RNA-Seq pipeline was completed on `date`. Please check the files!" >> log.out
 exit 0;
 #################
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
