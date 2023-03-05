@@ -38,9 +38,10 @@ done
 
 
 #################
-#### Environments (this folder is not bound by apptainer)
+#### Variables (this folder is not bound by apptainer)
 CONTAINER=/projects/ncrrbt_share_la/dev_pipe
 INDEX=/projects/ncrrbt_share_la/dev_pipe
+CPUS=12
 
 #### Start message
 echo "The RNA-Seq pipeline (v.0.1_dev) is for the mouse species and the $COLOR method was chosen" >> log.out
@@ -65,7 +66,7 @@ var=(`ls *R1*.fastq.gz`)
 	prefix=`echo ${i%%_R1*}`
 	
 	apptainer exec $CONTAINER/star.sif /bin/bash -c \
-	"STAR --genomeDir mouse_star_index --runThreadN 10 \
+	"STAR --genomeDir mouse_star_index --runThreadN $CPUS \
 	--readFilesIn $i $read2 \
 	--outSAMtype BAM Unsorted \
 	--readFilesCommand zcat \
@@ -97,7 +98,7 @@ cd star_results
 files=`ls -d *bam | xargs -n1000`
 
 apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
-"featureCounts -B -C -s 2 -p --countReadPairs -T 10 -t exon -g gene_id \
+"featureCounts -B -C -s 2 -p --countReadPairs -T $CPUS -t exon -g gene_id \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files"
 exit 1
@@ -134,7 +135,7 @@ var=(`ls ../star_results/*bam`)
 	do
 	prefix=`echo ${i%%_S*}`	
 	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
-	"sambamba markdup -t 10 $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
+	"sambamba markdup -t $CPUS $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
 	done
 exit 1
 
@@ -162,7 +163,7 @@ var=(`ls *R1*.fastq.gz`)
 	prefix=`echo ${i%%_R1*}`
 
 	apptainer exec $CONTAINER/kallisto.sif /bin/bash -c \
-	"kallisto quant -i /root/kallisto/mouse_transcripts.idx -t 10 --rf-stranded -o kallisto.$prefix $i $read2 > $prefix.kallisto.log"
+	"kallisto quant -i /root/kallisto/mouse_transcripts.idx -t $CPUS --rf-stranded -o kallisto.$prefix $i $read2 > $prefix.kallisto.log"
 
 	## Put this inside the loop
 	if [ $? -eq 0 ]
@@ -202,7 +203,7 @@ var=(`ls *R1*.fastq.gz`)
 	prefix=`echo ${i%%_R1*}`
 	
 	apptainer exec $CONTAINER/salmon.sif /bin/bash -c \
-   	"salmon quant -i mouse_salmon_index -p 10 -l A --validateMappings -o salmon.${prefix} -1 $i -2 $read2"
+   	"salmon quant -i mouse_salmon_index -p $CPUS -l A --validateMappings -o salmon.${prefix} -1 $i -2 $read2"
 	
 	## Put this inside the loop
 	if [ $? -eq 0 ]
@@ -234,7 +235,7 @@ files=`ls *fastq.gz | xargs -n1000`
 mkdir fastqc_results
 
 apptainer exec $CONTAINER/fastqc.sif /bin/bash -c \
-	"fastqc -t 10 -o fastqc_results $files"
+	"fastqc -t $CPUS -o fastqc_results $files"
 exit 1
 
 AFTER=`date`
