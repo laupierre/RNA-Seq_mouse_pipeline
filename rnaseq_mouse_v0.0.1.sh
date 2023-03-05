@@ -103,7 +103,7 @@ apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 -o subread.counts.txt $files"
 
 [ $? -ne 0 ] || { 
-   	echo "MultiQC has an error. Pipeline terminated"
+   	echo "featureCounts has an error. Pipeline terminated"
     	exit 1
 	}
 	
