@@ -1,5 +1,7 @@
 ### This is the working place for developing the RNA-Seq pipeline based on singularity
 
+### 1- RNA-Seq: Application for PE Illumina sequencing, reverse stranded orientation
+
 This is the development version deposited for the production team: the current version is v0.0.1_dev
 
 The singularity images are available for:  
