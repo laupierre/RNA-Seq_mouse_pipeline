@@ -39,4 +39,4 @@ chmod +x rnaseq_mouse_v0.0.1.sh
 ./rnaseq_mouse_v0.0.1.sh --method=star   
 #####  
 
-Submit the file using: qsub -v CPUS=$PBS_NCPUS submit.pbs 
+Submit the file using: qsub submit.pbs  
