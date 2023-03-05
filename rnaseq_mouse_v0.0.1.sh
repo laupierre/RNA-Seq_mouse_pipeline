@@ -101,11 +101,6 @@ apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 "featureCounts -B -C -s 2 -p --countReadPairs -T $CPUS -t exon -g gene_id \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files"
-
-[ $? -ne 0 ] || { 
-   	echo "featureCounts has an error. Pipeline terminated"
-    	exit 1
-	}
 	
 cd ..
 
@@ -132,7 +127,7 @@ var=(`ls ../star_results/*.bam`)
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
 	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
 	
-	[ $? -eq 1 ] || { 
+	[ $? -ne 0 ] || { 
    	echo "RSeQC has an error. Pipeline terminated"
     	exit 1
 	}
@@ -146,7 +141,7 @@ var=(`ls ../star_results/*bam`)
 	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
 	"sambamba markdup -t $CPUS $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
 	
-	[ $? -eq 1 ] || { 
+	[ $? -ne 0 ] || { 
    	echo "Sambamba has an error. Pipeline terminated"
     	exit 1
 	}
