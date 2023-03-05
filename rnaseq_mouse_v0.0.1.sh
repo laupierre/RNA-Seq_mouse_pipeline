@@ -102,6 +102,11 @@ apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files"
 
+[ $? -ne 0 ] || { 
+   	echo "MultiQC has an error. Pipeline terminated"
+    	exit 1
+	}
+	
 cd ..
 
 AFTER=`date`
@@ -245,11 +250,6 @@ mkdir fastqc_results
 apptainer exec $CONTAINER/fastqc.sif /bin/bash -c \
 	"fastqc -t $CPUS -o fastqc_results $files"
 
-[ $? -eq 1 ] || { 
-   	echo "FastQC has an error. Pipeline terminated"
-    	exit 1
-	}
-
 AFTER=`date`
 echo "FastQC finished on ${AFTER}" >> log.out
 ####
@@ -270,7 +270,7 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 -m rseqc $PBS_O_WORKDIR/rseqc_results/*infer_experiment.txt \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
 
-[ $? -eq 1 ] || { 
+[ $? -ne 0 ] || { 
    	echo "MultiQC has an error. Pipeline terminated"
     	exit 1
 	}
@@ -282,7 +282,7 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 -m salmon $PBS_O_WORKDIR/salmon_results/* \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
 
-[ $? -eq 1 ] || { 
+[ $? -ne 0 ] || { 
    	echo "MultiQC has an error. Pipeline terminated"
     	exit 1
 	}
@@ -294,7 +294,7 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 -m kallisto $PBS_O_WORKDIR/kallisto_results/*.kallisto.log \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
 
-[ $? -eq 1 ] || { 
+[ $? -ne 0 ] || { 
    	echo "MultiQC has an error. Pipeline terminated"
     	exit 1
 	}
