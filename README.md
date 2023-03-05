@@ -26,7 +26,7 @@ The RNA-Seq pipeline is found inside the rnaseq_mouse.sh file. In the pipeline, 
 Select the method you want to use (eg --method=salmon , if you want to use salmon  ...etc...) in the following PBS file and submit it to the PBS queue.  
 Here we are requesting 12 CPUS.
 
-#### submit.pbs 
+######## submit.pbs 
 #!/bin/bash  
 #PBS -l walltime=20:00:00   
 #PBS -l select=1:ncpus=12      
@@ -37,6 +37,6 @@ cd $PBS_O_WORKDIR
 
 chmod +x rnaseq_mouse_v0.0.1.sh  
 ./rnaseq_mouse_v0.0.1.sh --method=star   
-#####  
+######## 
 
 Submit the file using: qsub submit.pbs  
