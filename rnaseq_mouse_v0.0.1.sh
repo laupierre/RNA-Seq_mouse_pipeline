@@ -123,9 +123,10 @@ var=(`ls ../star_results/*.bam`)
 	
 	for i in ${var[@]}
 	do
-	prefix=`echo ${i%%.bam}`
+	prefix=`echo ${i%%_S*}`
+	prefix2=`echo ${prefix##*/}`
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
-	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
+	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix2.infer_experiment.txt"
 	
 	[ $? -ne 0 ] || { 
    	echo "RSeQC has an error. Pipeline terminated" >> log.out
@@ -137,9 +138,10 @@ var=(`ls ../star_results/*bam`)
 
 	for i in ${var[@]}
 	do
-	prefix=`echo ${i%%_S*}`	
+	prefix=`echo ${i%%_S*}`
+	prefix2=`echo ${prefix##*/}`
 	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
-	"sambamba markdup -t $CPUS $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
+	"sambamba markdup -t $CPUS $i $prefix2.markdup.bam > markdup.$prefix2.log 2>&1"
 	
 	[ $? -ne 0 ] || { 
    	echo "Sambamba has an error. Pipeline terminated" >> log.out
