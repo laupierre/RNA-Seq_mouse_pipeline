@@ -41,7 +41,7 @@ done
 #### Variables (this folder is not bound by apptainer)
 CONTAINER=/projects/ncrrbt_share_la/dev_pipe
 INDEX=/projects/ncrrbt_share_la/dev_pipe
-CPUS=$PBS_NCPUS
+#CPUS=12
 
 #### Start message
 echo "The RNA-Seq pipeline (v.0.1_dev) is for the mouse species and the $COLOR method was chosen" >> log.out
