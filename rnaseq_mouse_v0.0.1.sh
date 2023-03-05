@@ -260,7 +260,7 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m featureCounts $PBS_O_WORKDIR/star_results/*summary \
 -m star $PBS_O_WORKDIR/star_results/*Log.final.out \
--m sambamba $PBS_O_WORKDIR/rseqc_results/*markdup.bam.log \
+-m sambamba $PBS_O_WORKDIR/rseqc_results/markdup.star.IIT*.log \
 -m rseqc $PBS_O_WORKDIR/rseqc_results/*infer_experiment.txt \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
 fi
