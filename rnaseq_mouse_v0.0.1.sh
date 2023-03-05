@@ -140,7 +140,7 @@ var=(`ls *.bam`)
 	do
 	prefix=`echo ${i%%.bam}`
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
-	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix2.infer_experiment.txt" || { 
+	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt" || { 
    	echo "RSeQC has an error. Pipeline terminated" >> log.out
     	exit 1
 	}
