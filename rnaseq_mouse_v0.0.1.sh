@@ -77,7 +77,7 @@ var=(`ls *R1*.fastq.gz`)
 	then 
     	echo "STAR processed sample ${prefix}" >> log.out
 	else
-	echo "STAR failed on sample ${prefix}"  >> log.out
+	echo "STAR failed on sample ${prefix}. Pipeline terminated"  >> log.out
 	exit 1
 	fi
 	done
@@ -102,7 +102,11 @@ apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files"
 
-exit 1
+[ $? -eq 1 ] || { 
+    echo "FeatureCounts has an error. Pipeline terminated"
+    exit 1
+}
+
 cd ..
 
 AFTER=`date`
@@ -127,7 +131,11 @@ var=(`ls ../star_results/*.bam`)
 	prefix=`echo ${i%%.bam}`
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
 	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
-	exit 1
+	
+	[ $? -eq 1 ] || { 
+   	echo "RSeQC has an error. Pipeline terminated"
+    	exit 1
+	}
 	done
 
 var=(`ls ../star_results/*bam`)
@@ -137,7 +145,11 @@ var=(`ls ../star_results/*bam`)
 	prefix=`echo ${i%%_S*}`	
 	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
 	"sambamba markdup -t $CPUS $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
-	exit 1
+	
+	[ $? -eq 1 ] || { 
+   	echo "Sambamba has an error. Pipeline terminated"
+    	exit 1
+	}
 	done
 
 cd ..
@@ -171,7 +183,7 @@ var=(`ls *R1*.fastq.gz`)
 	then 
     	echo "kallisto processed sample ${prefix}" >> log.out
 	else
-	echo "kallisto failed on sample ${prefix}"  >> log.out
+	echo "kallisto failed on sample ${prefix}. Pipeline terminated"  >> log.out
 	exit 1
 	fi
 	done
@@ -211,7 +223,7 @@ var=(`ls *R1*.fastq.gz`)
 	then
     	echo "salmon processed sample ${prefix}" >> log.out
 	else
-	echo "salmon failed on sample ${prefix}"  >> log.out
+	echo "salmon failed on sample ${prefix}. Pipeline terminated"  >> log.out
 	exit 1
 	fi
 	done
@@ -237,7 +249,11 @@ mkdir fastqc_results
 
 apptainer exec $CONTAINER/fastqc.sif /bin/bash -c \
 	"fastqc -t $CPUS -o fastqc_results $files"
-exit 1
+
+[ $? -eq 1 ] || { 
+   	echo "FastQC has an error. Pipeline terminated"
+    	exit 1
+	}
 
 AFTER=`date`
 echo "FastQC finished on ${AFTER}" >> log.out
@@ -258,7 +274,11 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 -m sambamba $PBS_O_WORKDIR/rseqc_results/*markdup.bam.log \
 -m rseqc $PBS_O_WORKDIR/rseqc_results/*infer_experiment.txt \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
-exit 1
+
+[ $? -eq 1 ] || { 
+   	echo "MultiQC has an error. Pipeline terminated"
+    	exit 1
+	}
 fi
 
 if [ "$COLOR" = "salmon" ]; then
@@ -266,7 +286,11 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m salmon $PBS_O_WORKDIR/salmon_results/* \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
-exit 1
+
+[ $? -eq 1 ] || { 
+   	echo "MultiQC has an error. Pipeline terminated"
+    	exit 1
+	}
 fi
 
 if [ "$COLOR" = "kallisto" ]; then
@@ -274,7 +298,11 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m kallisto $PBS_O_WORKDIR/kallisto_results/*.kallisto.log \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
-exit 1
+
+[ $? -eq 1 ] || { 
+   	echo "MultiQC has an error. Pipeline terminated"
+    	exit 1
+	}
 fi
 
 AFTER=`date`
