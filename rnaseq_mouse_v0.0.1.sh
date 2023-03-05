@@ -128,7 +128,7 @@ var=(`ls ../star_results/*.bam`)
 	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
 	
 	[ $? -ne 0 ] || { 
-   	echo "RSeQC has an error. Pipeline terminated"
+   	echo "RSeQC has an error. Pipeline terminated" >> log.out
     	exit 1
 	}
 	done
@@ -142,7 +142,7 @@ var=(`ls ../star_results/*bam`)
 	"sambamba markdup -t $CPUS $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
 	
 	[ $? -ne 0 ] || { 
-   	echo "Sambamba has an error. Pipeline terminated"
+   	echo "Sambamba has an error. Pipeline terminated" >> log.out
     	exit 1
 	}
 	done
