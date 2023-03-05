@@ -160,7 +160,7 @@ var=(`ls *R1*.fastq.gz`)
 	prefix=`echo ${i%%_R1*}`
 
 	apptainer exec $CONTAINER/kallisto.sif /bin/bash -c \
-	"kallisto quant -i /root/kallisto/mouse_transcripts.idx -t 10 --rf-stranded -o kallisto.$prefix $i $read2"
+	"kallisto quant -i /root/kallisto/mouse_transcripts.idx -t 10 --rf-stranded -o kallisto.$prefix $i $read2 > $prefix_kallisto.log"
 
 	## Put this inside the loop
 	if [ $? -eq 0 ]
