@@ -127,8 +127,8 @@ var=(`ls ../star_results/*.bam`)
 	prefix=`echo ${i%%.bam}`
 	apptainer exec $CONTAINER/rseqc.sif /bin/bash -c \
 	"infer_experiment.py -r GRCm39_GENCODE_VM27.bed -i $i 1> rseqc.$prefix.infer_experiment.txt"
+	exit 1
 	done
-exit 1
 
 var=(`ls ../star_results/*bam`)
 
@@ -137,8 +137,8 @@ var=(`ls ../star_results/*bam`)
 	prefix=`echo ${i%%_S*}`	
 	apptainer exec $CONTAINER/sambamba.sif /bin/bash -c \
 	"sambamba markdup -t $CPUS $i $prefix.markdup.bam > markdup.$prefix.log 2>&1"
+	exit 1
 	done
-exit 1
 
 cd ..
 
