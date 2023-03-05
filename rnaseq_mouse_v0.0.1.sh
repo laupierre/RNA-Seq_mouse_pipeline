@@ -269,11 +269,6 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 -m sambamba $PBS_O_WORKDIR/rseqc_results/*markdup.bam.log \
 -m rseqc $PBS_O_WORKDIR/rseqc_results/*infer_experiment.txt \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
-
-[ $? -ne 0 ] || { 
-   	echo "MultiQC has an error. Pipeline terminated"
-    	exit 1
-	}
 fi
 
 if [ "$COLOR" = "salmon" ]; then
@@ -281,11 +276,6 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
 -m salmon $PBS_O_WORKDIR/salmon_results/* \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
-
-[ $? -ne 0 ] || { 
-   	echo "MultiQC has an error. Pipeline terminated"
-    	exit 1
-	}
 fi
 
 if [ "$COLOR" = "kallisto" ]; then
@@ -294,10 +284,10 @@ apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 -m kallisto $PBS_O_WORKDIR/kallisto_results/*.kallisto.log \
 -m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
 
-[ $? -ne 0 ] || { 
-   	echo "MultiQC has an error. Pipeline terminated"
-    	exit 1
-	}
+#[ $? -ne 0 ] || { 
+#   	echo "MultiQC has an error. Pipeline terminated"
+#    	exit 1
+#	}
 fi
 
 AFTER=`date`
