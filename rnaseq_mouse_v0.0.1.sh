@@ -83,7 +83,7 @@ var=(`ls *R1*.fastq.gz`)
 	done
 	
 
-	ls *filtered.fastq | parallel -j 4 pigz -p 3 {}
+	ls *filtered.fastq | parallel -j 2 pigz -p 6 {}
 	mv *filtered.fastq.gz projects
 
 cd projects
