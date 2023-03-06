@@ -82,9 +82,9 @@ var=(`ls *R1*.fastq.gz`)
 	#mv $prefix\_R2_001.filtered.fastq.gz projects
 	done
 	
-	apptainer exec $CONTAINER/bbmap.sif /bin/bash -c \
-	"ls *filtered.fastq | parallel -j 4 pigz -p 3 {}"
-	mv filtered.fastq.gz projects
+
+	ls *filtered.fastq | parallel -j 4 pigz -p 3 {}
+	mv *filtered.fastq.gz projects
 
 cd projects
 mv ../log.out .
