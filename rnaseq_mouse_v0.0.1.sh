@@ -50,6 +50,47 @@ echo "Starting the RNA-Seq pipeline on `date`" >> log.out
 
 
 
+###################
+#### BBMap analysis
+echo "Starting BBMap ..." >> log.out
+
+cp /projects/ncrrbt_share_la/dev_pipe/mouse_ribosomal.fa .
+mkdir projects
+
+var=(`ls *R1*.fastq.gz`)
+
+	for i in ${var[@]}
+	do
+	read2=`echo ${i} | sed 's/R1/R2/g'`
+	prefix=`echo ${i%%_R1*}`
+	
+	apptainer exec $CONTAINER/bbmap.sif /bin/bash -c \
+   	"bbduk.sh threads=$CPUS in=$i in2=$read2 out1=$prefix\_R1_001.filtered.fastq out2=$prefix\_R2_001.filtered.fastq ref=mouse_ribosomal.fa k=31 overwrite=t"
+		
+	## Put this inside the loop
+	if [ $? -eq 0 ]
+	then
+    	echo "bbmap processed sample ${prefix}" >> log.out
+	else
+	echo "bbmap failed on sample ${prefix}. Pipeline terminated"  >> log.out
+	exit 1
+	fi
+	
+	pigz -p $CPUS $prefix\_R1_001.filtered.fastq
+	mv $prefix\_R1_001.filtered.fastq.gz projects
+	pigz -p $CPUS $prefix\_R2_001.filtered.fastq
+	mv $prefix\_R2_001.filtered.fastq.gz projects
+	done
+
+cd projects
+
+AFTER=`date`
+echo "BBMap finished on ${AFTER}" >> log.out
+####
+
+
+
+
 ##################
 #### STAR analysis
 if [ "$COLOR" = "star" ]; then
