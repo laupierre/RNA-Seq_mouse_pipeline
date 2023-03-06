@@ -76,10 +76,14 @@ var=(`ls *R1*.fastq.gz`)
 	exit 1
 	fi
 	
-	pigz -p $CPUS $prefix\_R1_001.filtered.fastq
-	mv $prefix\_R1_001.filtered.fastq.gz projects
-	pigz -p $CPUS $prefix\_R2_001.filtered.fastq
-	mv $prefix\_R2_001.filtered.fastq.gz projects
+	#pigz -p $CPUS $prefix\_R1_001.filtered.fastq
+	#mv $prefix\_R1_001.filtered.fastq.gz projects
+	#Upigz -p $CPS $prefix\_R2_001.filtered.fastq
+	#mv $prefix\_R2_001.filtered.fastq.gz projects
+	
+	apptainer exec $CONTAINER/bbmap.sif /bin/bash -c \
+	"ls *filtered.fastq | parallel -j 4 pigz -p 3 {}"
+	mv filtered.fastq.gz projects
 	done
 
 cd projects
