@@ -16,7 +16,7 @@ sambamba version 0.8.2
 STAR version 2.7.10b  
 
 
-The Singularity containers and mouse indexes are currently located in:
+The Singularity containers and mouse indexes are located in:
 /projects/ncrrbt_share_la/dev_pipe/
 
 The containers are built following this example that was used for STAR:  
