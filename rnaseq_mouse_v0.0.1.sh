@@ -304,25 +304,25 @@ echo "Starting MultiQC ..." >> log.out
 if [ "$COLOR" = "star" ]; then
 apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
--m featureCounts $PBS_O_WORKDIR/star_results/*summary \
--m star $PBS_O_WORKDIR/star_results/*Log.final.out \
--m sambamba $PBS_O_WORKDIR/rseqc_results/markdup.star.IIT*.log \
--m rseqc $PBS_O_WORKDIR/rseqc_results/*infer_experiment.txt \
--m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+-m featureCounts $PBS_O_WORKDIR/projects/star_results/*summary \
+-m star $PBS_O_WORKDIR/projects/star_results/*Log.final.out \
+-m sambamba $PBS_O_WORKDIR/projects/rseqc_results/markdup.star.IIT*.log \
+-m rseqc $PBS_O_WORKDIR/projects/rseqc_results/*infer_experiment.txt \
+-m fastqc $PBS_O_WORKDIR/projects/fastqc_results/*zip"
 fi
 
 if [ "$COLOR" = "salmon" ]; then
 apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
--m salmon $PBS_O_WORKDIR/salmon_results/* \
--m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+-m salmon $PBS_O_WORKDIR/projects/salmon_results/* \
+-m fastqc $PBS_O_WORKDIR/projects/fastqc_results/*zip"
 fi
 
 if [ "$COLOR" = "kallisto" ]; then
 apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
 "multiqc -f -n multiqc_report_rnaseq \
--m kallisto $PBS_O_WORKDIR/kallisto_results/*.kallisto.log \
--m fastqc $PBS_O_WORKDIR/fastqc_results/*zip"
+-m kallisto $PBS_O_WORKDIR/projects/kallisto_results/*.kallisto.log \
+-m fastqc $PBS_O_WORKDIR/projects/fastqc_results/*zip"
 fi
 
 AFTER=`date`
