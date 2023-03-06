@@ -1,6 +1,6 @@
 ### This is the working place for developing the RNA-Seq pipeline based on singularity
 
-### 1- RNA-Seq: Application for PE Illumina sequencing, in reverse strand orientation
+### 1- Mouse RNA-Seq: Application for PE Illumina sequencing, in reverse strand orientation
 
 This is the development version deposited for the production team: the current version is v0.0.1_dev
 
