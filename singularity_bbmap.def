@@ -52,7 +52,8 @@ From: ubuntu:22.04
     unzip \
     libbz2-dev	\
     liblzma-dev	\
-    libbtbb-dev
+    libbtbb-dev \
+    parallel
 
     
     export LANG=C.UTF-8 LC_ALL=C.UTF-8
