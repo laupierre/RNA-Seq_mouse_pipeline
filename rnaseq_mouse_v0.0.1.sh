@@ -97,7 +97,7 @@ cd star_results
 files=`ls -d *bam | xargs -n1000`
 
 apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
-"featureCounts -B -C -s 2 -p --countReadPairs -T $CPUS -t exon -g gene_id --extraAttributes gene_name \
+"featureCounts -B -C -s 2 -p --countReadPairs -T $CPUS -t exon -g gene_id --extraAttributes gene_name,gene_type \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files" || { 
 echo "featureCounts has an error. Pipeline terminated" >> log.out
