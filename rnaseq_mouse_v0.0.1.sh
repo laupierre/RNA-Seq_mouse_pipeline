@@ -78,7 +78,7 @@ var=(`ls *R1*.fastq.gz`)
 	
 	#pigz -p $CPUS $prefix\_R1_001.filtered.fastq
 	#mv $prefix\_R1_001.filtered.fastq.gz projects
-	#Upigz -p $CPS $prefix\_R2_001.filtered.fastq
+	#pigz -p $CPS $prefix\_R2_001.filtered.fastq
 	#mv $prefix\_R2_001.filtered.fastq.gz projects
 	done
 	
