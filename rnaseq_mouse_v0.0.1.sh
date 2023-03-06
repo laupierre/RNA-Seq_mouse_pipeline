@@ -83,6 +83,7 @@ var=(`ls *R1*.fastq.gz`)
 	done
 
 cd projects
+mv ../log.out .
 
 AFTER=`date`
 echo "BBMap finished on ${AFTER}" >> log.out
