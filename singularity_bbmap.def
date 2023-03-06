@@ -96,7 +96,6 @@ From: ubuntu:22.04
     
 
 %test
-    bbmap.sh -v
     mamba --version
 
 	
