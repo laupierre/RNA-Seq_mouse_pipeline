@@ -52,7 +52,7 @@ echo "Starting the RNA-Seq pipeline on `date`" >> log.out
 
 ###################
 #### BBMap analysis
-echo "Starting BBMap ..." >> log.out
+echo "Starting ribosomal filtering with BBMap ..." >> log.out
 
 cp /projects/ncrrbt_share_la/dev_pipe/mouse_ribosomal.fa .
 mkdir projects
@@ -99,7 +99,7 @@ echo "BBMap finished on ${AFTER}" >> log.out
 ##################
 #### STAR analysis
 if [ "$COLOR" = "star" ]; then
-echo "Starting STAR ..." >> log.out
+echo "Starting alignment with STAR ..." >> log.out
 
 cp -r $CONTAINER/mouse_star_index .
 
@@ -138,7 +138,7 @@ echo "STAR finished on ${AFTER}" >> log.out
 
 #############################
 #### featureCounts after STAR
-echo "Starting featureCounts ..." >> log.out
+echo "Starting counting with featureCounts ..." >> log.out
 cd star_results
 files=`ls -d *bam | xargs -n1000`
 
@@ -206,7 +206,7 @@ fi
 ######################
 #### kallisto analysis
 if [ "$COLOR" = "kallisto" ]; then
-echo "Starting kallisto ..." >> log.out
+echo "Starting kallisto pseudo-counting ..." >> log.out
 
 var=(`ls *R1*.fastq.gz`)
 
@@ -244,7 +244,7 @@ fi
 ######################################
 #### salmon analysis in automatic mode (should fall back on ISR mode)
 if [ "$COLOR" = "salmon" ]; then
-echo "Starting salmon ..." >> log.out
+echo "Starting salmon pseudo-counting ..." >> log.out
 
 cp -r $CONTAINER/mouse_salmon_index .
 
@@ -333,7 +333,7 @@ echo "MultiQC finished on ${AFTER}" >> log.out
 
 #################
 #### Exit message
-echo "The RNA-Seq pipeline was completed on `date`. Please check the files that were produced!" >> log.out
+echo "The RNA-Seq pipeline was completed on `date`. Please check the files that were produced in the ouput folder!" >> log.out
 exit 0;
 #################
 
