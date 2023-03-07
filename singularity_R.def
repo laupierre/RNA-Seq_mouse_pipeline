@@ -9,11 +9,11 @@ From: ubuntu:22.04
     Year March_2023
     
 %help
-	  This is the container with R for testing the RNA-Seq pipeline
+    This is the container with R for testing the RNA-Seq pipeline
 
 %environment
-	  PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-	  LANG=C.UTF-8 LC_ALL=C.UTF-8
+    PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+    LANG=C.UTF-8 LC_ALL=C.UTF-8
 	
 %files
 
@@ -67,42 +67,41 @@ From: ubuntu:22.04
     
     cd /home
 
-	 # Install R 4.2 
-	 wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-	 add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/"
-	 apt install -y --no-install-recommends r-base
+    # Install R 4.2 
+    wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/"
+    apt install -y --no-install-recommends r-base
 	
-	 # Install R packages
-   R --quiet --slave -e 'install.packages("dplyr", version = "1.1.0", repos="https://cloud.r-project.org/")'
-   R --quiet --slave -e 'install.packages("openxlsx", version = "4.2.5.2", repos="https://cloud.r-project.org/")'
-	 R --quiet --slave -e 'install.packages(c("BiocManager"), version = "3.16")'
-	 R --quiet --slave -e 'BiocManager::install(c("limma", "DESeq2", "tximport"))'
+    # Install R packages
+    R --quiet --slave -e 'install.packages("dplyr", version = "1.1.0", repos="https://cloud.r-project.org/")'
+    R --quiet --slave -e 'install.packages("openxlsx", version = "4.2.5.2", repos="https://cloud.r-project.org/")'
+    R --quiet --slave -e 'install.packages(c("BiocManager"), version = "3.16")'  
+    R --quiet --slave -e 'BiocManager::install(c("limma", "DESeq2", "tximport"))'
 
-	 NOW=`date`
-	 echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+    NOW=`date`
+    echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	 VAL=`R --version | grep "R version"`
-	 echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+    VAL=`R --version | grep "R version"`  
+    echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
 	
-	 echo "software R" >> "$SINGULARITY_LABELS"
-	 echo "version $VAL" >> "$SINGULARITY_LABELS"
+    echo "software R" >> "$SINGULARITY_LABELS"
+    echo "version $VAL" >> "$SINGULARITY_LABELS"
 
-
-	 # Cleanup
-   cd /home
-   rm -rf ${star_version}.tar.gz && \
-   apt-get autoremove -y && \
-   apt-get autoclean -y  && \
-   apt-get clean	
+    # Cleanup
+    cd /home
+    rm -rf ${star_version}.tar.gz && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y  && \
+    apt-get clean	
 
 
 %test
-	 R --version | grep "R version"
+    R --version | grep "R version"
 
 	
 %runscript
-	 echo "This is the container for $VAL" 
-   echo "Container was created on $NOW"
+    echo "This is the container for $VAL" 
+    echo "Container was created on $NOW"
 
 
 
