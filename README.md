@@ -22,6 +22,8 @@ The Singularity containers and mouse indexes are located in:
 The containers are built following this example used for STAR:  
 apptainer build star.sif singularity_star.def
 
+See mouse_indexes for details on how the different indexes are made.
+
    
 In a new folder, put 1- the rnaseq_mouse_v0.0.1.sh file and 2- the submit.pbs file. Finally, add 3- all the PE fastq files you want to analyze.
 
