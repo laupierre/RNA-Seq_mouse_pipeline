@@ -1,0 +1,108 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+
+%labels
+    Author IIT_Genomics_Core
+    Pipeline RNA-Seq
+    Version v0.0.1_dev
+    Year March_2023
+    
+%help
+	  This is the container with R for testing the RNA-Seq pipeline
+
+%environment
+	  PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+	  LANG=C.UTF-8 LC_ALL=C.UTF-8
+	
+%files
+
+	    
+%post
+    apt-get -qq -y update
+    
+    #for tzdata
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get -qq install -y --no-install-recommends tzdata apt-utils 
+
+    ln -fs /usr/share/zoneinfo/Europe/Rome /etc/localtime 
+    dpkg-reconfigure --frontend noninteractive tzdata
+
+    
+    apt-get -qq -y update
+    apt-get -qq install -y --no-install-recommends \
+    autoconf \
+    automake \
+    build-essential \
+    bzip2 \
+    cmake \
+    gcc \
+    g++ \
+    gfortran \
+    default-jdk \
+    git \
+    libnss-sss \
+    libtbb2 \
+    libtbb-dev \
+    libncurses-dev \
+    python3-dev \
+    python3-pip \
+    python3-wheel \
+    unzip \
+    wget \
+    nano \
+    zlib1g \
+    zlib1g-dev \
+    software-properties-common \
+    dirmngr \
+    ca-certificates \
+    libglib2.0-0 \
+    libxext6 \
+    libsm6 \
+    libxrender1
+    
+    
+    export LANG=C.UTF-8 LC_ALL=C.UTF-8
+    
+    
+    cd /home
+
+	 # Install R 4.2 
+	 wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+	 add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/"
+	 apt install -y --no-install-recommends r-base
+	
+	 # Install R packages
+   R --quiet --slave -e 'install.packages("dplyr", version = "1.1.0", repos="https://cloud.r-project.org/")'
+   R --quiet --slave -e 'install.packages("openxlsx", version = "4.2.5.2", repos="https://cloud.r-project.org/")'
+	 R --quiet --slave -e 'install.packages(c("BiocManager"), version = "3.16")'
+	 R --quiet --slave -e 'BiocManager::install(c("limma", "DESeq2", "tximport"))'
+
+	 NOW=`date`
+	 echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+	
+	 VAL=`R --version | grep "R version"`
+	 echo "export VAL=\"${VAL}\"" >> $SINGULARITY_ENVIRONMENT
+	
+	 echo "software R" >> "$SINGULARITY_LABELS"
+	 echo "version $VAL" >> "$SINGULARITY_LABELS"
+
+
+	 # Cleanup
+   cd /home
+   rm -rf ${star_version}.tar.gz && \
+   apt-get autoremove -y && \
+   apt-get autoclean -y  && \
+   apt-get clean	
+
+
+%test
+	 R --version | grep "R version"
+
+	
+%runscript
+	 echo "This is the container for $VAL" 
+   echo "Container was created on $NOW"
+
+
+
