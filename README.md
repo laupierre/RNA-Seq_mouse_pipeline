@@ -14,6 +14,7 @@ rseqc version 5.0.1
 salmon version 1.10.0  
 sambamba version 0.8.2  
 STAR version 2.7.10b  
+R version 4.2.2   
 
 
 The Singularity containers and mouse indexes are located in:
