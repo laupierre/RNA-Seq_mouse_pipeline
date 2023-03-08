@@ -331,6 +331,18 @@ echo "MultiQC finished on ${AFTER}" >> log.out
 
 
 
+###########################
+### Write results to output
+if [ "$COLOR" = "star" ]; then
+cd ..
+apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
+"Rscript $CONTAINER/star_wrap"
+fi
+
+
+
+
+
 #################
 #### Exit message
 echo "The RNA-Seq pipeline was completed on `date`. Please check the files that were produced in the output folder!" >> log.out
