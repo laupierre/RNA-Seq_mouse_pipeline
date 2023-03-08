@@ -26,6 +26,8 @@ anno <- unique (anno)
 
 res <- merge (res, anno, by.x="row.names", by.y="gene_id", all.x=TRUE)
 colnames (res)[1] <- "Geneid"
+res <- res[grep ("miRNA|Mt_tRNA|Mt_rRNA|rRNA|snRNA|snoRNA|scRNA|sRNA|misc_RNA|scaRNA|ribozyme|IG_|TR_", res$gene_type, invert=TRUE), ]
+
 
 write.xlsx (res, "./output/salmon_gene_lengthScaledTPM_counts.xlsx", rowNames=F)
 #write.table (res, "./output/salmon_gene_lengthScaledTPM_counts.txt", sep="\t", quote=F, row.names=F)
