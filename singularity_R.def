@@ -75,7 +75,7 @@ From: ubuntu:22.04
     
     cd /home
 
-    # Install R 4.2 
+    # Install R 4.2.2 Patched
     wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
     add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/"
     apt install -y --no-install-recommends r-base
