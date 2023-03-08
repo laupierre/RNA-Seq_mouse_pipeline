@@ -62,6 +62,11 @@ From: ubuntu:22.04
     libxrender1 \
     libcurl4 \
     libssl-dev \
+    libpng-dev \
+    libxml2 \
+    pkg-config \
+    libblas-dev \
+    liblapack-dev
     
     
     
