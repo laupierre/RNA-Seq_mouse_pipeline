@@ -52,7 +52,7 @@ echo "Starting the RNA-Seq pipeline on `date`" >> log.out
 
 ###################
 #### BBMap analysis
-echo "Starting ribosomal filtering with BBMap ..." >> log.out
+echo "Starting ribosomal and mitochondrial filtering with BBMap ..." >> log.out
 
 cp /projects/ncrrbt_share_la/dev_pipe/mouse_ribosomal.fa .
 mkdir projects
