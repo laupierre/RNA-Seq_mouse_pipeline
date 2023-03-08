@@ -63,7 +63,7 @@ From: ubuntu:22.04
     libcurl4-openssl-dev \
     libssl-dev \
     libpng-dev \
-    libxml2 \
+    libxml2-dev \
     pkg-config \
     libblas-dev \
     liblapack-dev
