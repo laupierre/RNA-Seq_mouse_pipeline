@@ -18,7 +18,7 @@ colnames (a) <- gsub (".*IIT_", "", colnames (a))
 a <- merge (a, anno, by.x="Geneid", by.y="gene_id", all.x=TRUE) 
 a <- a[ ,grep ("gene_type.y|gene_name.y", colnames (a), invert=TRUE)]
 colnames (a) [colnames (a) == "gene_name.x"] <- "gene_name"
-
+colnames (a) [colnames (a) == "gene_type.x"] <- "gene_type"
 head (a)
   
 write.xlsx (a, "./output/star_gene_raw_counts.xlsx", rowNames=F)
