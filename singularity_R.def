@@ -60,7 +60,7 @@ From: ubuntu:22.04
     libxext6 \
     libsm6 \
     libxrender1 \
-    libcurl4 \
+    libcurl4-openssl-dev \
     libssl-dev \
     libpng-dev \
     libxml2 \
