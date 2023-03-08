@@ -333,6 +333,7 @@ echo "MultiQC finished on ${AFTER}" >> log.out
 
 ###########################
 ### Write results to output
+
 if [ "$COLOR" = "star" ]; then
 cd ..
 cp $CONTAINER/star_wrap.R .
@@ -342,6 +343,15 @@ apptainer exec $CONTAINER/R.sif /bin/bash -c \
 "Rscript star_wrap.R"
 fi
 
+
+if [ "$COLOR" = "salmon" ]; then
+cd ..
+cp $CONTAINER/salmon_wrap.R .
+cp $CONTAINER/gencode.vM32.annotation.txt .
+
+apptainer exec $CONTAINER/R.sif /bin/bash -c \
+"Rscript salmon_wrap.R"
+fi
 
 
 
