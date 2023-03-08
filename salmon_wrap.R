@@ -3,6 +3,10 @@ library(tximport)
 library(openxlsx)
 
 
+system ("mkdir ./output")
+system ("cp ./projects/log.out ./output")
+
+
 tx2gene <- read.delim ("gencode.vM32.annotation.txt")
 tx2gene <- tx2gene[ ,c("transcript_id", "gene_id")]
 colnames (tx2gene) <- c("TXNAME", "GENEID")
