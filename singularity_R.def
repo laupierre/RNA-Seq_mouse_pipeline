@@ -59,7 +59,10 @@ From: ubuntu:22.04
     libglib2.0-0 \
     libxext6 \
     libsm6 \
-    libxrender1
+    libxrender1 \
+    libcurl4 \
+    libssl-dev \
+    
     
     
     export LANG=C.UTF-8 LC_ALL=C.UTF-8
