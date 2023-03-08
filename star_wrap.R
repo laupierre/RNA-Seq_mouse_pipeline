@@ -2,7 +2,6 @@ library (openxlsx)
 
 system ("mkdir ./output")
 system ("cp ./projects/log.out ./output")
-system ("cp /projects/ncrrbt_share_la/dev_pipe/gencode.vM32.annotation.txt .")
 
 anno <- read.delim ("gencode.vM32.annotation.txt")
 anno <- anno[ ,grep ("transcript_id", colnames (anno), invert=TRUE)]
