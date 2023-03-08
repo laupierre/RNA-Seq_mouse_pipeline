@@ -336,7 +336,7 @@ echo "MultiQC finished on ${AFTER}" >> log.out
 if [ "$COLOR" = "star" ]; then
 cd ..
 apptainer exec $CONTAINER/multiqc.sif /bin/bash -c \
-"Rscript $CONTAINER/star_wrap"
+"Rscript $CONTAINER/star_wrap.R"
 fi
 
 
