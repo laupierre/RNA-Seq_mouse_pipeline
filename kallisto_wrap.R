@@ -1,6 +1,7 @@
 library(DESeq2)
 library(tximport)
 library(openxlsx)
+library (ggplot2)
 
 system ("mkdir ./output")
 system ("cp ./projects/log.out ./output")
@@ -67,7 +68,7 @@ dds <- DESeq(dds)
 res <- results(dds)
 
 ## MA plot
-pdf ("MA_plot.pdf")
+pdf ("./output/MA_plot.pdf")
 plotMA(res, ylim=c(-5,5))
 dev.off()
 
@@ -82,7 +83,7 @@ ggplot(pcaData, aes(PC1, PC2, color=condition, shape=replicate)) +
   		ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
 		  coord_fixed ()
 
-ggsave ("PCA_plot.pdf")
+ggsave ("./output/PCA_plot.pdf")
 
 ## save output
 res <- merge (data.frame (res), counts (dds), by="row.names")
