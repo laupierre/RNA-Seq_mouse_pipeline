@@ -354,6 +354,15 @@ apptainer exec $CONTAINER/R.sif /bin/bash -c \
 fi
 
 
+if [ "$COLOR" = "kallisto" ]; then
+cd ..
+cp $CONTAINER/kallisto_wrap.R .
+cp $CONTAINER/gencode.vM32.annotation.txt .
+
+apptainer exec $CONTAINER/R.sif /bin/bash -c \
+"Rscript kallisto_wrap.R"
+fi
+
 
 
 #################
