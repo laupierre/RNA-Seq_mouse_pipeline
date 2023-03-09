@@ -56,7 +56,7 @@ sampleTable$replicate <- factor (sampleTable$replicate)
 stopifnot (sampleTable$sample == colnames (a))
 
 
-dds <- DESeqDataSetFromMatrix(countData = a, colData = sampleTable, design = ~ condition)
+dds <- DESeqDataSetFromMatrix(countData = round (a), colData = sampleTable, design = ~ condition)
                                  
 # keep <- rowSums(counts(dds)) >= 10
 keep <- rowSums(counts(dds) >= 10) >= dim (a)[2]/2
