@@ -1,6 +1,7 @@
 library(DESeq2)
 library(tximport)
 library(openxlsx)
+library (ggplot2)
 
 
 system ("mkdir ./output")
