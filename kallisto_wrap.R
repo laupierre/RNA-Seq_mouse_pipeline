@@ -82,6 +82,8 @@ ggplot(pcaData, aes(PC1, PC2, color=condition, shape=replicate)) +
   		ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
 		  coord_fixed ()
 
+ggsave ("PCA_plot.pdf")
+
 ## save output
 res <- merge (data.frame (res), counts (dds), by="row.names")
 res <- merge (res, annot, by.x="Row.names", by.y="Geneid")
@@ -89,8 +91,3 @@ colnames (res)[1] <- "Geneid"
 res <- res[order (res$padj), ]
 write.xlsx (res, "./output/star_deseq2_differential_expression.xlsx")
 
-
-
-
-
-ggsave ("PCA_plot.pdf")
