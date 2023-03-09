@@ -26,7 +26,10 @@ apptainer build star.sif singularity_star.def
 See mouse_indexes for details on how the different indexes are made.
 
    
-In a new folder, put 1- the rnaseq_mouse_v0.0.1.sh file and 2- the submit.pbs file. Finally, add 3- all the PE fastq files you want to analyze.
+In a new folder, put 1- the submit.pbs file below and 2- the samples_rnaseq.xlsx containing the samples. Finally, add 3- all the PE fastq files you want to analyze.
+
+The the samples_rnaseq.xlsx is an excel file containing the 3 mandatory columns
+sample	condition	replicate
 
 The RNA-Seq pipeline is found inside the rnaseq_mouse.sh file and submitted to PBS using submit.pbs. In this pipeline, there are three methods available for the RNA quantification: star, kallisto, salmon. Select the method you want to use (eg --method=salmon, if you want to use salmon, or --method=star or --method=kalllisto) in the PBS file before launching the main command: qsub submit.pbs 
 
@@ -39,7 +42,9 @@ The RNA-Seq pipeline is found inside the rnaseq_mouse.sh file and submitted to P
 
 cd $PBS_O_WORKDIR   
 
-chmod +x rnaseq_mouse_v0.0.1.sh  
+cp /projects/ncrrbt_share_la/dev_pipe/rnaseq_mouse_v0.0.1.sh $PBS_O_WORKDIR
+chmod +x rnaseq_mouse_v0.0.1.sh
+
 ./rnaseq_mouse_v0.0.1.sh --method=star   
 ######## 
 
