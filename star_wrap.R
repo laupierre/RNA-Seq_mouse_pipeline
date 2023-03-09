@@ -81,4 +81,3 @@ ggplot(pcaData, aes(PC1, PC2, color=condition, shape=replicate)) +
   		ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
 		  coord_fixed ()
 ggsave ("PCA_plot.pdf")
-dds <- dds[keep,]
