@@ -65,18 +65,11 @@ dds <- dds[keep,]
 # R will choose a reference level for factors based on alphabetical order
 dds <- DESeq(dds)
 res <- results(dds)
-res <- merge (data.frame (res), counts (dds), by="row.names")
-res <- merge (res, annot, by.x="Row.names", by.y="Geneid")
-colnames (res)[1] <- "Geneid"
-res <- res[order (res$padj), ]
-write.xlsx (res, "./output/star_deseq2_differential_expression.xlsx")
-
 
 ## MA plot
 pdf ("MA_plot.pdf")
 plotMA(res, ylim=c(-5,5))
 dev.off()
-
 
 ## PCA plot
 vsd <- vst(dds, blind=FALSE)
@@ -88,4 +81,16 @@ ggplot(pcaData, aes(PC1, PC2, color=condition, shape=replicate)) +
   		xlab(paste0("PC1: ",percentVar[1],"% variance")) +
   		ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
 		  coord_fixed ()
+
+## save output
+res <- merge (data.frame (res), counts (dds), by="row.names")
+res <- merge (res, annot, by.x="Row.names", by.y="Geneid")
+colnames (res)[1] <- "Geneid"
+res <- res[order (res$padj), ]
+write.xlsx (res, "./output/star_deseq2_differential_expression.xlsx")
+
+
+
+
+
 ggsave ("PCA_plot.pdf")
