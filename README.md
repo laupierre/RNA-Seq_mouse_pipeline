@@ -43,5 +43,5 @@ chmod +x rnaseq_mouse_v0.0.1.sh
 ./rnaseq_mouse_v0.0.1.sh --method=star   
 ######## 
 
-When the analysis is done, a log file is appearing in the output folder, together with the raw counts in case of STAR, or the length scaled TPM counts of genes in case of salmon and kallisto. This counts file can be analyzed for differential expression when needed.
+When the analysis is done, a log file is appearing in the output folder, together with the raw counts in case of STAR, or with the length scaled TPM counts of genes in case of salmon and kallisto. Thes counts can be further processed for differential expression.
  
