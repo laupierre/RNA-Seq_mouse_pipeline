@@ -34,6 +34,8 @@ torm <- c("gene_name", "gene_type", "mgi_id", "external_gene_name", "description
 a <- a[ ,!colnames (a) %in% torm]
 row.names (a) <- a[ ,1]
 a <- a[ ,-1]
+colnames (a) <- gsub("(_S[0-9].*)" , "", colnames (a))
+
 
 # samples sheet
 sampleTable <- read.xlsx ("samples_rnaseq.xlsx")
