@@ -90,5 +90,5 @@ res <- merge (data.frame (res), counts (dds), by="row.names")
 res <- merge (res, annot, by.x="Row.names", by.y="Geneid")
 colnames (res)[1] <- "Geneid"
 res <- res[order (res$padj), ]
-write.xlsx (res, "./output/star_deseq2_differential_expression.xlsx")
+write.xlsx (res, "./output/kallisto_deseq2_differential_expression.xlsx")
 
