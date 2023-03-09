@@ -42,7 +42,7 @@ The RNA-Seq pipeline is found inside the rnaseq_mouse.sh file and submitted to P
 
 cd $PBS_O_WORKDIR   
 
-cp /projects/ncrrbt_share_la/dev_pipe/rnaseq_mouse_v0.0.1.sh $PBS_O_WORKDIR
+cp /projects/ncrrbt_share_la/dev_pipe/rnaseq_mouse_v0.0.1.sh .  
 chmod +x rnaseq_mouse_v0.0.1.sh
 
 ./rnaseq_mouse_v0.0.1.sh --method=star   
