@@ -52,7 +52,7 @@ dds <- DESeqDataSetFromMatrix(countData = a, colData = sampleTable, design = ~ c
                                  
 # keep <- rowSums(counts(dds)) >= 10
 keep <- rowSums(counts(dds) >= 10) >= dim (a)[2]/2
-
+dds <- dds[keep,]
 
 # R will choose a reference level for factors based on alphabetical order
 dds <- DESeq(dds)
@@ -81,11 +81,4 @@ ggplot(pcaData, aes(PC1, PC2, color=condition, shape=replicate)) +
   		ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
 		  coord_fixed ()
 ggsave ("PCA_plot.pdf")
-
-
-
-
-
-
-
 dds <- dds[keep,]
