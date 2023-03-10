@@ -8,7 +8,7 @@ anno <- anno[ ,grep ("transcript_id", colnames (anno), invert=TRUE)]
 anno <- unique (anno)
 
 
-a <- annot <- read.xlsx ("./output/kallisto_gene_raw_counts.xlsx")
+a <- annot <- read.xlsx ("./output/kallisto_gene_lengthScaledTPM_counts.xlsx")
 
 annot <- annot[ ,c("Geneid", "gene_name", "gene_type", "mgi_id", "external_gene_name", "description")]
 
