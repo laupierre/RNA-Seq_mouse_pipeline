@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -l walltime=20:00:00
+#PBS -l select=1:ncpus=12
+#PBS -q workq
+#PBS -N rnaseq
+
+cd $PBS_O_WORKDIR
+
+cp /projects/ncrrbt_share_la/dev_pipe/rnaseq_mouse_v0.0.1.sh .
+chmod +x rnaseq_mouse_v0.0.1.sh
+
+./rnaseq_mouse_v0.0.1.sh --method=star  
