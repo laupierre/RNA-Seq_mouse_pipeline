@@ -32,7 +32,7 @@ This excel file has 3 mandatory columns: sample   condition   replicate
 Finally, add 3- all the PE fastq files you want to analyze that are described in the samples_rnaseq.xlsx file.
 
 In this pipeline, there are three methods available for the RNA quantification: star, kallisto, salmon. Select the method you want to use (eg --method=salmon, if you want to use salmon, or --method=star or --method=kalllisto) in the PBS file before launching the main command: qsub submit.pbs.
-The differential expression is handled by DESeq2 for two-groups comparison as described in the condition column of the samples_rnaseq.xlsx file. 
+The differential expression is handled by DESeq2 or by voom-limma for two-groups comparison as described in the condition column of the samples_rnaseq.xlsx file. 
 The comparison is made on the condition by alphabetical order. For example, Control and Treated conditions, will be take Control as reference.
 
 ######## submit.pbs  
@@ -51,7 +51,7 @@ chmod +x rnaseq_mouse_v0.0.1.sh
 ######## 
 
 When the analysis is done, the raw counts in case of STAR, or the length scaled TPM counts of genes in case of salmon and kallisto can be found in the output folder. 
-Differential expression for two-groups was performed with DESeq2 after each quantification.
+Differential expression for two-groups was performed with DESeq2 or voom-limma after each quantification.
  
 
 ├── kallisto_deseq2_differential_expression.xlsx  
