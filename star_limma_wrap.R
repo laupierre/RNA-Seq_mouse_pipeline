@@ -94,16 +94,3 @@ write.xlsx (res, "./output/star_limma_differential_expression.xlsx", rowNames=F)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
