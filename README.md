@@ -63,7 +63,7 @@ When the analysis is done, the raw counts in case of STAR, or the length scaled 
 ├── salmon_limma_differential_expression.xlsx  
 ├── salmon_deseq2_differential_expression.xlsx  
 ├── salmon_gene_lengthScaledTPM_counts.xlsx  
-├── salmon.log.out 
+├── salmon.log.out   
 |── star_limma_differential_expression.xlsx 
 ├── star_deseq2_differential_expression.xlsx  
 ├── star_gene_raw_counts.xlsx  
