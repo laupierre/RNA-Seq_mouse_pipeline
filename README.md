@@ -33,7 +33,8 @@ Finally, add 3- all the PE fastq files you want to analyze that are described in
 
 In this pipeline, there are three methods available for the RNA quantification: star, kallisto, salmon. Select the method you want to use (eg --method=salmon, if you want to use salmon, or --method=star or --method=kalllisto) in the PBS file before launching the main command: qsub submit.pbs.
 The differential expression is handled by DESeq2 or by voom-limma for two-groups comparison as described in the condition column of the samples_rnaseq.xlsx file. 
-The comparison is made on the condition by alphabetical order. For example, Control and Treated conditions, will be take Control as reference.
+The comparison is made on the condition by alphabetical order. For example, in Control and Treated conditions, Control will be the reference.
+
 
 ######## submit.pbs  
 #!/bin/bash  
@@ -50,19 +51,22 @@ chmod +x rnaseq_mouse_v0.0.1.sh
 ./rnaseq_mouse_v0.0.1.sh --method=star   
 ######## 
 
-When the analysis is done, the raw counts in case of STAR, or the length scaled TPM counts of genes in case of salmon and kallisto can be found in the output folder. 
-Differential expression for two-groups was performed with DESeq2 or voom-limma after each quantification.
+When the analysis is done, the raw counts in case of STAR, or the length scaled TPM counts of genes in case of salmon and kallisto can be found in the output folder. Differential expression for two-groups was performed with DESeq2 or voom-limma after each RNA quantification.
  
-
+├── kallisto_limma_differential_expression.xlsx    
 ├── kallisto_deseq2_differential_expression.xlsx  
 ├── kallisto_gene_lengthScaledTPM_counts.xlsx  
 ├── kallisto_log.out  
 ├── MA_plot.pdf  
 ├── multiqc_report_rnaseq.html  
 ├── PCA_plot.pdf  
+├── salmon_limma_differential_expression.xlsx  
 ├── salmon_deseq2_differential_expression.xlsx  
 ├── salmon_gene_lengthScaledTPM_counts.xlsx  
-├── salmon.log.out  
+├── salmon.log.out 
+|── star_limma_differential_expression.xlsx 
 ├── star_deseq2_differential_expression.xlsx  
 ├── star_gene_raw_counts.xlsx  
 └── star.log.out    
+  
+  
