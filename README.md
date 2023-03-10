@@ -1,6 +1,6 @@
-### This is the working place for developing the RNA-Seq pipeline based on singularity
+### This is the working place for developing a RNA-Seq pipeline based on singularity
 
-### 1- Mouse RNA-Seq: Application for PE Illumina sequencing, in reverse strand orientation
+### 1- Mouse RNA-Seq: PE Illumina sequencing, in reverse strand orientation
 
 This is the development version deposited for the production team: the current version is v0.0.1_dev
 
@@ -50,7 +50,19 @@ chmod +x rnaseq_mouse_v0.0.1.sh
 ./rnaseq_mouse_v0.0.1.sh --method=star   
 ######## 
 
-The output folder when running the 3 different methods, will look like this:
-
-When the analysis is done, a log file is appearing in the output folder, together with the raw counts in case of STAR, or with the length scaled TPM counts of genes in case of salmon and kallisto. Thes counts can be further processed for differential expression.
+When the analysis is done, the raw counts in case of STAR, or the length scaled TPM counts of genes in case of salmon and kallisto can be found in the output folder. 
+Differential expression for two-groups was performed with DESeq2 after each quantification.
  
+
+|── kallisto_deseq2_differential_expression.xlsx  
+├── kallisto_gene_lengthScaledTPM_counts.xlsx  
+├── kallisto_log.out  
+├── MA_plot.pdf  
+├── multiqc_report_rnaseq.html  
+├── PCA_plot.pdf  
+├── salmon_deseq2_differential_expression.xlsx  
+├── salmon_gene_lengthScaledTPM_counts.xlsx  
+├── salmon.log.out  
+├── star_deseq2_differential_expression.xlsx  
+├── star_gene_raw_counts.xlsx  
+└── star.log.out    
