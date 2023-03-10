@@ -357,10 +357,13 @@ fi
 if [ "$COLOR" = "salmon" ]; then
 cd ..
 cp $CONTAINER/salmon_wrap.R .
+cp $CONTAINER/salmon_limma_wrap.R .
 cp $CONTAINER/gencode.vM32.annotation.txt .
 
 apptainer exec $CONTAINER/R.sif /bin/bash -c \
 "Rscript salmon_wrap.R"
+apptainer exec $CONTAINER/R.sif /bin/bash -c \
+"Rscript salmon_limma_wrap.R"
 fi
 
 
