@@ -367,12 +367,12 @@ fi
 if [ "$COLOR" = "kallisto" ]; then
 cd ..
 cp $CONTAINER/kallisto_wrap.R .
+cp $CONTAINER/kallisto_limma_wrap.R .
 cp $CONTAINER/gencode.vM32.annotation.txt .
 
 apptainer exec $CONTAINER/R.sif /bin/bash -c \
-"Rscript kallisto_wrap.R"
-apptainer exec $CONTAINER/R.sif /bin/bash -c \
-"Rscript kallisto_limma_wrap.R"
+"Rscript kallisto_wrap.R
+Rscript kallisto_limma_wrap.R"
 fi
 
 
