@@ -52,18 +52,5 @@ chmod +x rnaseq_mouse_v0.0.1.sh
 
 The output folder when running the 3 different methods, will look like this:
 
-├── kallisto_deseq2_differential_expression.xlsx  
-├── kallisto_gene_lengthScaledTPM_counts.xlsx  
-├── kallisto_log.out  
-├── MA_plot.pdf  
-├── multiqc_report_rnaseq.html  
-├── PCA_plot.pdf  
-├── salmon_deseq2_differential_expression.xlsx  
-├── salmon_gene_lengthScaledTPM_counts.xlsx  
-├── salmon.log.out  
-├── star_deseq2_differential_expression.xlsx  
-├── star_gene_raw_counts.xlsx  
-└── star.log.out    
-
 When the analysis is done, a log file is appearing in the output folder, together with the raw counts in case of STAR, or with the length scaled TPM counts of genes in case of salmon and kallisto. Thes counts can be further processed for differential expression.
  
