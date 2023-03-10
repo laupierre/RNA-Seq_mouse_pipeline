@@ -84,7 +84,7 @@ From: ubuntu:22.04
     R --quiet --slave -e 'install.packages("dplyr", version = "1.1.0", repos="https://cloud.r-project.org/")'
     R --quiet --slave -e 'install.packages("openxlsx", version = "4.2.5.2", repos="https://cloud.r-project.org/")'
     R --quiet --slave -e 'install.packages(c("BiocManager"), version = "3.16")'  
-    R --quiet --slave -e 'BiocManager::install(c("limma", "DESeq2", "tximport"))'
+    R --quiet --slave -e 'BiocManager::install(c("limma", "DESeq2", "edgeR", "tximport"))'
 
     NOW=`date`
     echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
