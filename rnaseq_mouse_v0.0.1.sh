@@ -371,6 +371,8 @@ cp $CONTAINER/gencode.vM32.annotation.txt .
 
 apptainer exec $CONTAINER/R.sif /bin/bash -c \
 "Rscript kallisto_wrap.R"
+apptainer exec $CONTAINER/R.sif /bin/bash -c \
+"Rscript kallisto_limma_wrap.R"
 fi
 
 
