@@ -81,7 +81,7 @@ res <- topTable(efit, n=Inf)
 res <- merge (res, v$E, by="row.names")
 res <- merge (res, annot, by.x="Row.names", by.y="Geneid")
 colnames (res)[1] <- "Geneid"
-write.xlsx (res, "star_limma_differential_expression.xlsx", rowNames=F)
+write.xlsx (res, "./output/star_limma_differential_expression.xlsx", rowNames=F)
 
 
 #res2 <- merge (res1, res, by="Geneid")
