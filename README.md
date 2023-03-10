@@ -54,7 +54,7 @@ When the analysis is done, the raw counts in case of STAR, or the length scaled 
 Differential expression for two-groups was performed with DESeq2 after each quantification.
  
 
- |── kallisto_deseq2_differential_expression.xlsx  
+├── kallisto_deseq2_differential_expression.xlsx  
 ├── kallisto_gene_lengthScaledTPM_counts.xlsx  
 ├── kallisto_log.out  
 ├── MA_plot.pdf  
