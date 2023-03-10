@@ -31,7 +31,9 @@ This excel file has 3 mandatory columns: sample   condition   replicate
 
 Finally, add 3- all the PE fastq files you want to analyze that are described in the samples_rnaseq.xlsx file.
 
-The RNA-Seq pipeline is found inside the rnaseq_mouse.sh file and submitted to PBS using submit.pbs. In this pipeline, there are three methods available for the RNA quantification: star, kallisto, salmon. Select the method you want to use (eg --method=salmon, if you want to use salmon, or --method=star or --method=kalllisto) in the PBS file before launching the main command: qsub submit.pbs 
+In this pipeline, there are three methods available for the RNA quantification: star, kallisto, salmon. Select the method you want to use (eg --method=salmon, if you want to use salmon, or --method=star or --method=kalllisto) in the PBS file before launching the main command: qsub submit.pbs.
+The differential expression is handled by DESeq2 for two-groups comparison as described in the condition column of the samples_rnaseq.xlsx file. 
+The comparison is made on the condition by alphabetical order. For example, Control and Treated conditions, will be take Control as reference.
 
 ######## submit.pbs  
 #!/bin/bash  
