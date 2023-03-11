@@ -2,7 +2,7 @@
 
 ### 1- Mouse RNA-Seq: PE Illumina sequencing, in reverse strand orientation
 
-This is the development version deposited for the production team: the current version is v0.0.1_dev
+This is the development version deposited for the production team: the current version is v0.0.2_dev
 
 The singularity images are available for:  
 BBMap version 39.01  
