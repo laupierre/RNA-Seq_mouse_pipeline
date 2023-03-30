@@ -1,4 +1,4 @@
-### This is the working place for developing a RNA-Seq pipeline based on singularity
+### This is the working place for the RNA-Seq pipeline based on singularity
 
 ### 1- Mouse RNA-Seq: PE Illumina sequencing, in reverse strand orientation
 
