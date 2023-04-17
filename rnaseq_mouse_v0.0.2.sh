@@ -60,8 +60,7 @@ var=(`ls *_R*.fastq.gz`)
 for i in ${var[@]}
 do
 new=`echo $i | perl -pe 's/[^_].{3}?/IIT\_/'`
-echo $new
-#mv $i $new
+mv $i $new
 done
 
 
