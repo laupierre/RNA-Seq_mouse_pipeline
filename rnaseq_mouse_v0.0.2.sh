@@ -54,6 +54,18 @@ echo "Starting the RNA-Seq pipeline on `date`" >> log.out
 #### BBMap analysis
 echo "Starting ribosomal and mitochondrial filtering with BBMap ..." >> log.out
 
+
+var=(`ls *_R*.fastq.gz`)
+
+for i in ${var[@]}
+do
+new=`echo $i | perl -pe 's/[^_].{3}?/IIT\_/'`
+echo $new
+#mv $i $new
+done
+
+
+
 cp /projects/ncrrbt_share_la/dev_pipe/mouse_ribosomal.fa .
 mkdir projects
 
