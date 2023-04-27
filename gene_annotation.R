@@ -23,6 +23,15 @@ res <- getBM(attributes = c('ensembl_gene_id_version', 'external_gene_name', 'de
 dim (res)
 # 56953
 
+
+## This also works, adding chromosomal locations for mm39 genome
+
+#res <- getBM(attributes = c('ensembl_gene_id_version', 'external_gene_name', 'description', 'chromosome_name', 'start_position', 'end_position', 'strand'),
+#             filters = 'ensembl_gene_id_version',
+#             values = values, mart = ensembl)      
+
+
+
 my_obj <- merge (my_obj, res, by.x="gene_id", by.y="ensembl_gene_id_version", all.x=TRUE)
 
 write.table (my_obj, "gencode.vM32.annotation.txt", sep="\t", quote=F, row.names=F)
