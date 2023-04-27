@@ -42,6 +42,7 @@ done
 CONTAINER=/projects/ncrrbt_share_la/dev_pipe
 INDEX=/projects/ncrrbt_share_la/dev_pipe
 CPUS=16
+CPULOWS=12
 
 #### Start message
 echo "The RNA-Seq pipeline (v.0.0.2_dev) is for the mouse species and the $COLOR method was chosen" >> log.out
@@ -128,8 +129,8 @@ var=(`ls *_R1*.fastq.gz`)
 	read2=`echo ${i} | sed 's/R1/R2/g'`
 	prefix=`echo ${i%%_R1*}`
 	cpus=$(($CPUS/2))
-    echo -e $CONTAINER'\t'$i'\t'$read2'\t'$prefix'\t'$cpus >> parameters.txt 
-    done
+        echo -e $CONTAINER'\t'$i'\t'$read2'\t'$prefix'\t'$cpus >> parameters.txt 
+        done
 
     
 mystar () {
@@ -171,7 +172,7 @@ cd star_results
 files=`ls -d *bam | xargs -n1000`
 
 apptainer exec $CONTAINER/featurecounts.sif /bin/bash -c \
-"featureCounts -B -C -s 2 -p --countReadPairs -T $CPUS -t exon -g gene_id --extraAttributes gene_name,gene_type \
+"featureCounts -B -C -s 2 -p --countReadPairs -T $CPULOWS -t exon -g gene_id --extraAttributes gene_name,gene_type \
 -a /root/gtf/gencode.vM32.annotation.gtf \
 -o subread.counts.txt $files" || { 
 echo "featureCounts has an error. Pipeline terminated" >> log.out
