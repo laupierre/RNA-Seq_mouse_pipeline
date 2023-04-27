@@ -38,7 +38,7 @@ The comparison is made on the condition by alphabetical order. For example, in C
 
 ######## submit.pbs  
 #!/bin/bash  
-#PBS -l walltime=20:00:00   
+#PBS -l walltime=100:00:00   
 #PBS -l select=1:ncpus=12      
 #PBS -q workq  
 #PBS -N rnaseq   
