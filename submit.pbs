@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -l walltime=115:00:00
+#PBS -l walltime=118:00:00
 #PBS -l select=1:ncpus=20
 #PBS -q workq
 #PBS -N rnaseq
