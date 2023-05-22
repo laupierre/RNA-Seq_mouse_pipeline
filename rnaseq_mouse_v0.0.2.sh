@@ -42,7 +42,7 @@ done
 CONTAINER=/projects/ncrrbt_share_la/dev_pipe
 INDEX=/projects/ncrrbt_share_la/dev_pipe
 CPUS=20
-CPULOWS=12
+CPULOWS=14
 
 #### Start message
 echo "The RNA-Seq pipeline (v.0.0.2_dev) is for the mouse species and the $COLOR method was chosen" >> log.out
