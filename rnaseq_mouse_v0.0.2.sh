@@ -41,7 +41,7 @@ done
 #### Variables (this folder is not bound by apptainer)
 CONTAINER=/projects/ncrrbt_share_la/dev_pipe
 INDEX=/projects/ncrrbt_share_la/dev_pipe
-CPUS=16
+CPUS=20
 CPULOWS=12
 
 #### Start message
